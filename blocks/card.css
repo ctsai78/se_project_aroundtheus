@@ -1,4 +1,4 @@
-.cards {
+.card {
   margin-top: 51px;
 }
 
@@ -11,7 +11,7 @@
   margin: 0;
 }
 
-.card {
+.card__block {
   display: flex;
   flex-direction: column;
   list-style: none;
