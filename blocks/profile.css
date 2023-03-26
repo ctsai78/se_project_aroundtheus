@@ -76,7 +76,11 @@
 @media screen and (max-width: 490px) {
   .profile {
     flex-direction: column;
-    padding-top: 0;
+    padding-top: 38px;
+  }
+
+  .profile__image {
+    margin-right: 0px;
   }
 
   .profile__info {
@@ -109,8 +113,16 @@
   }
 
   .profile__add-button {
+    background: url(../images/Add-Button-mobile.svg) transparent center
+      no-repeat;
     margin: 0;
-    max-width: 282px;
-    width: 100%;
+    width: 282px;
+  }
+
+  .profile__add-button:hover {
+    background: url(../images/Add-Button-mobile.svg) transparent center
+      no-repeat;
+    opacity: 0.6;
+    cursor: pointer;
   }
 }

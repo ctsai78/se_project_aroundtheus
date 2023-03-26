@@ -1,17 +1,29 @@
 .header {
-  margin-top: 45px;
   border: 1px;
   border-bottom: solid;
   border-color: rgba(84, 84, 84, 0.7);
   padding-bottom: 41px;
   height: 33px;
+  max-width: 880px;
+  width: calc(100% - 40px);
+  position: relatvie;
+  margin: 45px auto 0 auto;
+}
+
+@media screen and (max-width: 770px) {
+  .header {
+    max-width: 590px;
+    width: calc(100% - 40px);
+  }
 }
 
 @media screen and (max-width: 490px) {
   .header {
     margin-top: 28px;
-    margin-left: 27px;
+    padding-left: 27px;
     padding-bottom: 32px;
     height: 24px;
+    max-width: 490px;
+    width: calc(100% - 40px);
   }
 }
