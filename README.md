@@ -18,6 +18,9 @@ Besieds the basic HTML and CSS knowledge, this project also applies grid layout 
 **Github**
 [Link to the project on Github](https://github.com/ctsai78/se_project_aroundtheus)
 
+Deployed website link:
+https://ctsai78.github.io/se_project_aroundtheus/
+
 **Figma**
 
 - [Link to the project on Figma](https://www.figma.com/file/ii4xxsJ0ghevUOcssTlHZv/Sprint-3%3A-Around-the-US?node-id=0%3A1)

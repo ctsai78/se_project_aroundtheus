@@ -3,27 +3,34 @@
   border-bottom: solid;
   border-color: rgba(84, 84, 84, 0.7);
   padding-bottom: 41px;
-  height: 33px;
   max-width: 880px;
   width: calc(100% - 40px);
   position: relatvie;
   margin: 45px auto 0 auto;
 }
 
+.header__logo {
+  height: 33px;
+  width: 173px;
+}
+
 @media screen and (max-width: 770px) {
   .header {
     max-width: 590px;
-    width: calc(100% - 40px);
   }
 }
 
 @media screen and (max-width: 490px) {
   .header {
-    margin-top: 28px;
+    margin: 28px 0 0 0;
     padding-left: 27px;
     padding-bottom: 32px;
+    max-width: 420px;
+    width: 100%;
+  }
+
+  .header__logo {
     height: 24px;
-    max-width: 490px;
-    width: calc(100% - 40px);
+    width: 126px;
   }
 }

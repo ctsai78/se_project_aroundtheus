@@ -58,3 +58,9 @@
   background: url(../images/like-active.svg) transparent center no-repeat;
   cursor: pointer;
 }
+
+@media screen and (max-width: 490px) {
+  .card {
+    margin-top: 36px;
+  }
+}

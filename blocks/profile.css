@@ -42,9 +42,8 @@
 }
 
 .profile__edit-button:hover {
-  background: url(../images/edit\ button-active.svg) transparent center
-    no-repeat;
   cursor: pointer;
+  opacity: 0.6;
 }
 
 .profile__description {
@@ -64,13 +63,13 @@
   height: 50px;
   width: 150px;
   margin-left: auto;
-  border: 1px solid #ffffff;
+  border: 2px solid #ffffff;
   border-radius: 2px;
 }
 
 .profile__add-button:hover {
-  background: url(../images/add\ button-active.svg) transparent center no-repeat;
   cursor: pointer;
+  opacity: 0.6;
 }
 
 @media screen and (max-width: 490px) {
@@ -117,12 +116,5 @@
       no-repeat;
     margin: 0;
     width: 282px;
-  }
-
-  .profile__add-button:hover {
-    background: url(../images/Add-Button-mobile.svg) transparent center
-      no-repeat;
-    opacity: 0.6;
-    cursor: pointer;
   }
 }
