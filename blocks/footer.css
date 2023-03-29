@@ -4,19 +4,12 @@
 
 .footer__copyright {
   color: #545454;
-  margin-bottom: 40;
+  margin-bottom: 60px;
   padding: 0;
   font-size: 18px;
   line-height: 1.2;
   width: 100%;
   box-sizing: border-box;
-}
-
-@media screen and (max-width: 1100px) {
-  .footer {
-    margin-top: 67px;
-    margin-bottom: 60px;
-  }
 }
 
 @media screen and (max-width: 490px) {
@@ -28,5 +21,6 @@
   .footer__copyright {
     font-size: 14px;
     line-height: 1.2;
+    margin-bottom: 36px;
   }
 }
