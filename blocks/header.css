@@ -16,7 +16,7 @@
 
 @media screen and (max-width: 770px) {
   .header {
-    max-width: 590px;
+    max-width: 455px;
   }
 }
 
@@ -25,12 +25,20 @@
     margin: 28px 0 0 0;
     padding-left: 27px;
     padding-bottom: 32px;
-    max-width: 354px;
+    max-width: 320px;
     width: 100%;
+    box-sizing: border-box;
+    border-bottom: none;
   }
 
   .header__logo {
     height: 24px;
     width: 126px;
+  }
+
+  .content {
+    border: 1px;
+    border-top: solid;
+    border-color: rgba(84, 84, 84, 0.7);
   }
 }
