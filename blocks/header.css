@@ -35,10 +35,4 @@
     height: 24px;
     width: 126px;
   }
-
-  .content {
-    border: 1px;
-    border-top: solid;
-    border-color: rgba(84, 84, 84, 0.7);
-  }
 }
