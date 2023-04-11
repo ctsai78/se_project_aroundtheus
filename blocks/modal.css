@@ -34,6 +34,9 @@
   background-image: url(../images/close.svg);
   background-repeat: no-repeat;
   background-size: contain;
+}
+
+.modal__close:hover {
   cursor: pointer;
 }
 
@@ -57,9 +60,11 @@
   margin-top: 30px;
   width: 358px;
   padding-bottom: 13px;
-  border: 1px;
-  border-bottom: solid;
+  border-bottom: solid 1px;
   border-color: rgba(0, 0, 0, 0.2);
+  font-family: "Inter", Arial, sans-serif;
+  font-weight: 400;
+  font-size: 14px;
 }
 
 .modal__button {
@@ -73,6 +78,10 @@
   line-height: 1.2;
   height: 50px;
   color: #fff;
+}
+
+.modal__button:hover {
+  cursor: pointer;
 }
 
 @media screen and (max-width: 490px) {
@@ -93,7 +102,9 @@
   }
 
   .modal__form-input {
+    height: 14px;
     width: 238px;
+    padding-top: 0px;
   }
 
   .modal__button {
