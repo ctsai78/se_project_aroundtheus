@@ -46,6 +46,8 @@
       </footer>
     </div>
 
+    <!-- ------------------------- PROFILE EDIT MODAL -------------------------- -->
+
     <div class="modal" id="profile-edit-modal">
       <div class="modal__container">
         <button
@@ -74,8 +76,58 @@
       </div>
     </div>
 
+    <!-- --------------------------- ADD CARD MODAL ---------------------------- -->
+    <div class="modal" id="add-card-modal">
+      <div class="modal__container">
+        <button
+          class="modal__close"
+          type="button"
+          id="modal-close-button"
+        ></button>
+        <h2 class="modal__heading">New Place</h2>
+        <form class="modal__form" id="add-card-from" name="profile-edit-form">
+          <input
+            type="text"
+            name="title"
+            id="profile-title-input"
+            class="modal__form-input modal__input_type_title"
+            placeholder="Title"
+          />
+          <input
+            type="text"
+            name="URL"
+            id="profile-description-input"
+            class="modal__form-input modal__input_type_URL"
+            placeholder="Image URL"
+          />
+          <button class="modal__button" type="submit">Save</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- ------------------------- IMAGE PREVIEW MODAL ------------------------- -->
+    <div class="modal" id="preview-image-modal">
+      <div class="modal__container-preview-image">
+        <button
+          class="modal__close"
+          type="button"
+          id="modal-close-button"
+        ></button>
+        <img
+          src=""
+          alt=""
+          class="card__image_preview"
+          id="card-image-preview"
+        />
+        <h2 class="card__title-preview"></h2>
+      </div>
+    </div>
+
+    <!-- ------------------------- CARD LIST TEMPLATE -------------------------- -->
+
     <template class="" id="card-template">
       <li class="card__block">
+        <button class="card__delete-button" type="button"></button>
         <img src="" alt="" class="card__image" />
         <div class="card__description">
           <h2 class="card__title"></h2>
