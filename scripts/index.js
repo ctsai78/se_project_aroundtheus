@@ -51,10 +51,8 @@ const profileDescriptionInput = document.querySelector(
   "#profile-description-input"
 );
 
-const cardTitleInput = addCardForm.querySelector(
-  ".modal__form-input_type_title"
-);
-const cardUrlInput = addCardForm.querySelector(".modal__input_type_URL");
+const cardTitleInput = addCardForm.querySelector(".modal__form-input-title");
+const cardUrlInput = addCardForm.querySelector(".modal__form-input-URL");
 
 //CARD LIST & TEMPLATE
 const cardListEl = document.querySelector(".card__list");
@@ -70,10 +68,10 @@ function openModal(modal) {
 }
 function openModalPreview(modal, cardData) {
   const cardImagePreviewEl = previewImageModal.querySelector(
-    "#card-image-preview"
+    ".card__image_preview"
   );
   const cardTitlePreviewEl = previewImageModal.querySelector(
-    ".card__title-preview"
+    ".card__title_preview"
   );
   cardImagePreviewEl.src = cardData.link;
   cardImagePreviewEl.alt = cardData.name;
