@@ -37,16 +37,11 @@ const previewImageModal = document.querySelector("#preview-image-modal");
 
 //BUTTONS AND OTHER DOM NODES
 const profileEditButton = document.querySelector("#profile-edit-button");
-const profileModalCloseButton = profileEditModal.querySelector(
-  "#modal-close-button"
-);
+const profileModalCloseButton = profileEditModal.querySelector(".modal__close");
 const addNewCardButton = document.querySelector(".profile__add-button");
-const addCardModalCloseButton = addCardModal.querySelector(
-  "#modal-close-button"
-);
-const previewImageModalCloseButton = previewImageModal.querySelector(
-  "#modal-close-button"
-);
+const addCardModalCloseButton = addCardModal.querySelector(".modal__close");
+const previewImageModalCloseButton =
+  previewImageModal.querySelector(".modal__close");
 
 // FORM INPUT DATA
 const profileTitle = document.querySelector(".profile__title");
