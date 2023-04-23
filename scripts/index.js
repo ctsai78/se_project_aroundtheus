@@ -51,7 +51,9 @@ const profileDescriptionInput = document.querySelector(
   "#profile-description-input"
 );
 
-const cardTitleInput = addCardForm.querySelector(".modal__input_type_title");
+const cardTitleInput = addCardForm.querySelector(
+  ".modal__form-input_type_title"
+);
 const cardUrlInput = addCardForm.querySelector(".modal__input_type_URL");
 
 //CARD LIST & TEMPLATE
