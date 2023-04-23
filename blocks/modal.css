@@ -96,6 +96,26 @@
   opacity: 0.8;
 }
 
+.modal__image_preview {
+  background: transparent;
+  max-width: 75vw;
+  max-height: 75vh;
+  width: auto;
+  height: auto;
+}
+
+.modal__title_preview {
+  font-family: "inter", Arial, sans-serif;
+  font-weight: 400;
+  max-width: 291px;
+  font-size: 12px;
+  line-height: 1.2;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  overflow: hidden;
+  margin-top: 10px;
+}
+
 @media screen and (max-width: 490px) {
   .modal__container {
     padding: 25px 22px 25px 22px;

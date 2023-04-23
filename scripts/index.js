@@ -68,10 +68,10 @@ function openModal(modal) {
 }
 function openModalPreview(modal, cardData) {
   const cardImagePreviewEl = previewImageModal.querySelector(
-    ".card__image_preview"
+    ".modal__image_preview"
   );
   const cardTitlePreviewEl = previewImageModal.querySelector(
-    ".card__title_preview"
+    ".modal__title_preview"
   );
   cardImagePreviewEl.src = cardData.link;
   cardImagePreviewEl.alt = cardData.name;
