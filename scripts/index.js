@@ -50,7 +50,6 @@ const profileTitleInput = document.querySelector("#profile-title-input");
 const profileDescriptionInput = document.querySelector(
   "#profile-description-input"
 );
-
 const cardTitleInput = addCardForm.querySelector(".modal__form-input-title");
 const cardUrlInput = addCardForm.querySelector(".modal__form-input-URL");
 
@@ -66,6 +65,7 @@ const cardTemplate =
 function openModal(modal) {
   modal.classList.add("modal_opened");
 }
+
 function openModalPreview(modal, cardData) {
   const cardImagePreviewEl = previewImageModal.querySelector(
     ".modal__image_preview"
@@ -75,9 +75,8 @@ function openModalPreview(modal, cardData) {
   );
   cardImagePreviewEl.src = cardData.link;
   cardImagePreviewEl.alt = cardData.name;
-  cardImagePreviewEl.textContent = cardData.name;
   cardTitlePreviewEl.textContent = cardData.name;
-  modal.classList.add("modal_opened");
+  openModal(modal);
 }
 
 function closeModal(modal) {
@@ -88,15 +87,15 @@ function getCardElement(cardData) {
   const cardElement = cardTemplate.cloneNode(true);
   const cardImageEl = cardElement.querySelector(".card__image");
   const cardTitleEl = cardElement.querySelector(".card__title");
-  const likeButtons = cardElement.querySelector(".card__like-button");
-  const deleteButtons = cardElement.querySelector(".card__delete-button");
+  const likeButton = cardElement.querySelector(".card__like-button");
+  const deleteButton = cardElement.querySelector(".card__delete-button");
 
   /* -------------------------------- TASK 4/7 -------------------------------- */
-  likeButtons.addEventListener("click", () => {
-    likeButtons.classList.toggle("card__like-button_active");
+  likeButton.addEventListener("click", () => {
+    likeButton.classList.toggle("card__like-button_active");
   });
   /* -------------------------------- TASK 5/7 -------------------------------- */
-  deleteButtons.addEventListener("click", () => {
+  deleteButton.addEventListener("click", () => {
     cardElement.remove();
   });
   /* -------------------------------- TASK 6/7 -------------------------------- */
@@ -132,6 +131,7 @@ function handleAddCardFormSubmit(e) {
   const name = cardTitleInput.value;
   const link = cardUrlInput.value;
   renderCard({ name, link }, cardListEl);
+  addCardForm.reset();
   closeModal(addCardModal);
 }
 /* -------------------------------------------------------------------------- */
