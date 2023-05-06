@@ -115,6 +115,12 @@
   color: rgba(0, 0, 0, 0.2);
   border-color: rgba(0, 0, 0, 0.2);
   border: solid;
+  cursor: default;
+}
+
+.modal__button_disabled:hover {
+  opacity: 1;
+  cursor: default;
 }
 
 .modal__image_preview {

@@ -17,9 +17,10 @@ function hideInputError(formEl, inputEl, { inputErrorClass, errorClass }) {
 
 function checkInputValidity(formEl, inputEl, options) {
   if (!inputEl.validity.valid) {
-    return showInputError(formEl, inputEl, options);
+    showInputError(formEl, inputEl, options);
+  } else {
+    hideInputError(formEl, inputEl, options);
   }
-  hideInputError(formEl, inputEl, options);
 }
 
 function hasInvalidInput(inputList) {
@@ -40,15 +41,19 @@ function enabledButton(submitButton, { inactiveButtonClass }) {
 function toggleButtonState(inputEls, submitButton, { inactiveButtonClass }) {
   if (hasInvalidInput(inputEls)) {
     disabledButton(submitButton, { inactiveButtonClass });
-    return;
+  } else {
+    enabledButton(submitButton, { inactiveButtonClass });
   }
-  enabledButton(submitButton, { inactiveButtonClass });
 }
 
 function setEventListeners(formEl, options) {
   const { inputSelector } = options;
+  const { submitButtonSelector } = options;
   const inputEls = [...formEl.querySelectorAll(inputSelector)];
-  const submitButton = formEl.querySelector(".modal__button");
+  const submitButton = formEl.querySelector(submitButtonSelector);
+
+  toggleButtonState(inputEls, submitButton, options);
+
   inputEls.forEach((inputEl) => {
     inputEl.addEventListener("input", (e) => {
       checkInputValidity(formEl, inputEl, options);
@@ -69,18 +74,11 @@ function enableValidation(options) {
 }
 
 const config = {
-  //formSelector: ".popup__form",
   formSelector: ".modal__form",
-  //inputSelector: ".popup__input",
   inputSelector: ".modal__form-input",
-
-  submitButtonSelector: ".popup__button",
-  //   inactiveButtonClass: "popup__button_disabled",
+  submitButtonSelector: ".modal__button",
   inactiveButtonClass: "modal__button_disabled",
-
-  //   inputErrorClass: "popup__input_type_error",
   inputErrorClass: "modal__input-error",
-  //   errorClass: "popup__error_visible",
   errorClass: "modal__input-error_visible",
 };
 

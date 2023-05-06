@@ -62,15 +62,18 @@ const cardTemplate =
 /* -------------------------------------------------------------------------- */
 /*                                  FUNCTIONS                                 */
 /* -------------------------------------------------------------------------- */
-function handleEscape(e, modal) {
-  if (e.key === "Escape") {
-    closeModal(modal);
+
+function handleEscape(event) {
+  if (event.key === "Escape") {
+    const openedModal = document.querySelector(".modal__opened");
+    closeModal(openedModal);
   }
 }
 
 function openModal(modal) {
   modal.classList.add("modal__opened");
-  document.addEventListener("keydown", (e) => handleEscape(e, modal));
+  document.addEventListener("keydown", handleEscape);
+  modal.addEventListener("mousedown", closeModalOnRemoteClick);
 }
 
 function openModalPreview(modal, cardData) {
@@ -88,7 +91,8 @@ function openModalPreview(modal, cardData) {
 
 function closeModal(modal) {
   modal.classList.remove("modal__opened");
-  document.removeEventListener("keydown", (e) => handleEscape(e, modal));
+  document.removeEventListener("keydown", handleEscape);
+  modal.removeEventListener("mousedown", closeModalOnRemoteClick);
 }
 
 function getCardElement(cardData) {
@@ -140,15 +144,13 @@ function handleAddCardFormSubmit(e) {
   closeModal(addCardModal);
 }
 
-function handleCloseModal(modal) {
-  modal.addEventListener("click", (evt) => {
-    if (
-      evt.target.classList.contains("modal") ||
-      evt.target.classList.contains("modal__close")
-    ) {
-      modal.classList.remove("modal__opened");
-    }
-  });
+function closeModalOnRemoteClick(evt) {
+  // target is the element on which the event happened
+  // currentTarget is the popup
+  // if they are the same then we should close the popup
+  if (evt.target === evt.currentTarget) {
+    closeModal(evt.target);
+  }
 }
 /* -------------------------------------------------------------------------- */
 /*                               EVENT LISTENERS                              */
@@ -165,8 +167,6 @@ profileModalCloseButton.addEventListener("click", () =>
 );
 profileEditForm.addEventListener("submit", handleProfileEditSubmit);
 
-handleCloseModal(profileEditModal);
-
 //Add New Card
 addNewCardButton.addEventListener("click", () => openModal(addCardModal));
 
@@ -176,8 +176,6 @@ addCardModalCloseButton.addEventListener("click", () =>
 
 addCardForm.addEventListener("submit", handleAddCardFormSubmit);
 
-handleCloseModal(addCardModal);
-
 //Preview Image
 previewImageModalCloseButton.addEventListener("click", () =>
   closeModal(previewImageModal)
@@ -186,8 +184,6 @@ previewImageModalCloseButton.addEventListener("click", () =>
 previewImageModal.addEventListener("click", () =>
   closeModal(previewImageModal)
 );
-
-handleCloseModal(previewImageModal);
 
 /* -------------------------------------------------------------------------- */
 /*                           GENERATE INITIAL CARDS                           */
