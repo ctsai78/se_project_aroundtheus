@@ -60,7 +60,12 @@
             class="modal__form-input"
             placeholder="Name"
             required
+            maxlength="40"
+            minlength="2"
           />
+          <!-- Edit Error message class -->
+          <span class="modal__input-error" id="profile-title-input-error">
+          </span>
           <input
             type="text"
             name="description"
@@ -68,7 +73,11 @@
             class="modal__form-input"
             placeholder="Description"
             required
+            maxlength="200"
+            minlength="2"
           />
+          <span class="modal__input-error" id="profile-description-input-error">
+          </span>
           <button class="modal__button" type="submit">Save</button>
         </form>
       </div>
@@ -83,16 +92,28 @@
           <input
             type="text"
             name="title"
+            id="add-card-title"
             class="modal__form-input modal__form-input-title"
             placeholder="Title"
+            required
+            maxlength="30"
+            minlength="1"
           />
+          <span class="modal__input-error" id="add-card-title-error"
+            >Please fill out this field.</span
+          >
           <input
             type="url"
             name="URL"
+            id="add-card-url"
             class="modal__form-input modal__form-input-URL"
             placeholder="Image URL"
+            required
           />
-          <button class="modal__button" type="submit">Save</button>
+          <span class="modal__input-error" id="add-card-url-error"
+            >Please enter a web address.</span
+          >
+          <button class="modal__button" type="submit" disabled>Save</button>
         </form>
       </div>
     </div>
@@ -124,5 +145,6 @@
       </li>
     </template>
     <script src="./scripts/index.js" defer></script>
+    <script src="./scripts/validation.js" defer></script>
   </body>
 </html>

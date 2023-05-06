@@ -34,6 +34,7 @@ const addCardModal = document.querySelector("#add-card-modal");
 const profileEditForm = profileEditModal.querySelector(".modal__form");
 const addCardForm = addCardModal.querySelector(".modal__form");
 const previewImageModal = document.querySelector("#preview-image-modal");
+const modalContainer = document.querySelector(".modal__container");
 
 //BUTTONS AND OTHER DOM NODES
 const profileEditButton = document.querySelector("#profile-edit-button");
@@ -61,9 +62,15 @@ const cardTemplate =
 /* -------------------------------------------------------------------------- */
 /*                                  FUNCTIONS                                 */
 /* -------------------------------------------------------------------------- */
+function handleEscape(e, modal) {
+  if (e.key === "Escape") {
+    closeModal(modal);
+  }
+}
 
 function openModal(modal) {
-  modal.classList.add("modal_opened");
+  modal.classList.add("modal__opened");
+  document.addEventListener("keydown", (e) => handleEscape(e, modal));
 }
 
 function openModalPreview(modal, cardData) {
@@ -80,7 +87,8 @@ function openModalPreview(modal, cardData) {
 }
 
 function closeModal(modal) {
-  modal.classList.remove("modal_opened");
+  modal.classList.remove("modal__opened");
+  document.removeEventListener("keydown", (e) => handleEscape(e, modal));
 }
 
 function getCardElement(cardData) {
@@ -90,21 +98,17 @@ function getCardElement(cardData) {
   const likeButton = cardElement.querySelector(".card__like-button");
   const deleteButton = cardElement.querySelector(".card__delete-button");
 
-  /* -------------------------------- TASK 4/7 -------------------------------- */
   likeButton.addEventListener("click", () => {
     likeButton.classList.toggle("card__like-button_active");
   });
-  /* -------------------------------- TASK 5/7 -------------------------------- */
+
   deleteButton.addEventListener("click", () => {
     cardElement.remove();
   });
-  /* -------------------------------- TASK 6/7 -------------------------------- */
 
   cardImageEl.addEventListener("click", () =>
     openModalPreview(previewImageModal, cardData)
   );
-  /* -------------------------------------------------------------------------- */
-
   cardImageEl.src = cardData.link;
   cardImageEl.alt = cardData.name;
   cardTitleEl.textContent = cardData.name;
@@ -115,6 +119,7 @@ function renderCard(cardData, wrapper) {
   const cardElement = getCardElement(cardData);
   wrapper.prepend(cardElement);
 }
+
 /* -------------------------------------------------------------------------- */
 /*                               EVENT HANDLERS                               */
 /* -------------------------------------------------------------------------- */
@@ -134,6 +139,17 @@ function handleAddCardFormSubmit(e) {
   addCardForm.reset();
   closeModal(addCardModal);
 }
+
+function handleCloseModal(modal) {
+  modal.addEventListener("click", (evt) => {
+    if (
+      evt.target.classList.contains("modal") ||
+      evt.target.classList.contains("modal__close")
+    ) {
+      modal.classList.remove("modal__opened");
+    }
+  });
+}
 /* -------------------------------------------------------------------------- */
 /*                               EVENT LISTENERS                              */
 /* -------------------------------------------------------------------------- */
@@ -149,6 +165,8 @@ profileModalCloseButton.addEventListener("click", () =>
 );
 profileEditForm.addEventListener("submit", handleProfileEditSubmit);
 
+handleCloseModal(profileEditModal);
+
 //Add New Card
 addNewCardButton.addEventListener("click", () => openModal(addCardModal));
 
@@ -158,10 +176,18 @@ addCardModalCloseButton.addEventListener("click", () =>
 
 addCardForm.addEventListener("submit", handleAddCardFormSubmit);
 
+handleCloseModal(addCardModal);
+
 //Preview Image
 previewImageModalCloseButton.addEventListener("click", () =>
   closeModal(previewImageModal)
 );
+
+previewImageModal.addEventListener("click", () =>
+  closeModal(previewImageModal)
+);
+
+handleCloseModal(previewImageModal);
 
 /* -------------------------------------------------------------------------- */
 /*                           GENERATE INITIAL CARDS                           */
