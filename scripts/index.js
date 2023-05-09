@@ -137,7 +137,7 @@ function handleProfileEditSubmit(e) {
   closeModal(profileEditModal);
 }
 
-function handleAddCardFormSubmit(e, addCardSubmitButton, config) {
+function handleAddCardFormSubmit(e) {
   e.preventDefault();
   const name = cardTitleInput.value;
   const link = cardUrlInput.value;
