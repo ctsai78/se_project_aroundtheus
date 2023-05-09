@@ -24,6 +24,7 @@ const initialCards = [
     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lago.jpg",
   },
 ];
+
 /* -------------------------------------------------------------------------- */
 /*                                  ELEMENTS                                  */
 /* -------------------------------------------------------------------------- */
@@ -43,6 +44,7 @@ const addNewCardButton = document.querySelector(".profile__add-button");
 const addCardModalCloseButton = addCardModal.querySelector(".modal__close");
 const previewImageModalCloseButton =
   previewImageModal.querySelector(".modal__close");
+const addCardSubmitButton = addCardModal.querySelector(".modal__button");
 
 // FORM INPUT DATA
 const profileTitle = document.querySelector(".profile__title");
@@ -135,13 +137,14 @@ function handleProfileEditSubmit(e) {
   closeModal(profileEditModal);
 }
 
-function handleAddCardFormSubmit(e) {
+function handleAddCardFormSubmit(e, addCardSubmitButton, config) {
   e.preventDefault();
   const name = cardTitleInput.value;
   const link = cardUrlInput.value;
   renderCard({ name, link }, cardListEl);
   addCardForm.reset();
   closeModal(addCardModal);
+  disabledButton(addCardSubmitButton, config);
 }
 
 function closeModalOnRemoteClick(evt) {
