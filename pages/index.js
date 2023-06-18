@@ -1,3 +1,6 @@
+import FormValidator from "../components/FormValidator.js";
+import Card from "../components/Card.js";
+
 const initialCards = [
   {
     name: "Yosemite Valley",
@@ -61,6 +64,8 @@ const cardListEl = document.querySelector(".card__list");
 const cardTemplate =
   document.querySelector("#card-template").content.firstElementChild;
 
+const cardSelector = "#card-template";
+
 /* -------------------------------------------------------------------------- */
 /*                                  FUNCTIONS                                 */
 /* -------------------------------------------------------------------------- */
@@ -78,18 +83,18 @@ function openModal(modal) {
   modal.addEventListener("mousedown", closeModalOnRemoteClick);
 }
 
-function openModalPreview(modal, cardData) {
-  const cardImagePreviewEl = previewImageModal.querySelector(
-    ".modal__image_preview"
-  );
-  const cardTitlePreviewEl = previewImageModal.querySelector(
-    ".modal__title_preview"
-  );
-  cardImagePreviewEl.src = cardData.link;
-  cardImagePreviewEl.alt = cardData.name;
-  cardTitlePreviewEl.textContent = cardData.name;
-  openModal(modal);
-}
+// function openModalPreview(modal, cardData) {
+//   const cardImagePreviewEl = previewImageModal.querySelector(
+//     ".modal__image_preview"
+//   );
+//   const cardTitlePreviewEl = previewImageModal.querySelector(
+//     ".modal__title_preview"
+//   );
+//   cardImagePreviewEl.src = cardData.link;
+//   cardImagePreviewEl.alt = cardData.name;
+//   cardTitlePreviewEl.textContent = cardData.name;
+//   openModal(modal);
+// }
 
 function closeModal(modal) {
   modal.classList.remove("modal__opened");
@@ -97,33 +102,38 @@ function closeModal(modal) {
   modal.removeEventListener("mousedown", closeModalOnRemoteClick);
 }
 
-function getCardElement(cardData) {
-  const cardElement = cardTemplate.cloneNode(true);
-  const cardImageEl = cardElement.querySelector(".card__image");
-  const cardTitleEl = cardElement.querySelector(".card__title");
-  const likeButton = cardElement.querySelector(".card__like-button");
-  const deleteButton = cardElement.querySelector(".card__delete-button");
+// function getCardElement(cardData) {
+//   const cardElement = cardTemplate.cloneNode(true);
+//   const cardImageEl = cardElement.querySelector(".card__image");
+//   const cardTitleEl = cardElement.querySelector(".card__title");
+//   const likeButton = cardElement.querySelector(".card__like-button");
+//   const deleteButton = cardElement.querySelector(".card__delete-button");
 
-  likeButton.addEventListener("click", () => {
-    likeButton.classList.toggle("card__like-button_active");
-  });
+//   likeButton.addEventListener("click", () => {
+//     likeButton.classList.toggle("card__like-button_active");
+//   });
 
-  deleteButton.addEventListener("click", () => {
-    cardElement.remove();
-  });
+//   deleteButton.addEventListener("click", () => {
+//     cardElement.remove();
+//   });
 
-  cardImageEl.addEventListener("click", () =>
-    openModalPreview(previewImageModal, cardData)
-  );
-  cardImageEl.src = cardData.link;
-  cardImageEl.alt = cardData.name;
-  cardTitleEl.textContent = cardData.name;
-  return cardElement;
-}
+//   cardImageEl.addEventListener("click", () =>
+//     openModalPreview(previewImageModal, cardData)
+//   );
+//   cardImageEl.src = cardData.link;
+//   cardImageEl.alt = cardData.name;
+//   cardTitleEl.textContent = cardData.name;
+//   return cardElement;
+// }
 
+/* ------------------------------- Create Card ------------------------------ */
 function renderCard(cardData, wrapper) {
-  const cardElement = getCardElement(cardData);
-  wrapper.prepend(cardElement);
+  // delete below code later
+  // const cardElement = getCardElement(cardData);
+  // wrapper.prepend(cardElement);
+
+  const card = new Card(cardData, cardSelector);
+  wrapper.prepend(card.getView());
 }
 
 /* -------------------------------------------------------------------------- */
@@ -193,3 +203,24 @@ previewImageModal.addEventListener("click", () =>
 /* -------------------------------------------------------------------------- */
 
 initialCards.forEach((cardData) => renderCard(cardData, cardListEl));
+
+/* -------------------------------------------------------------------------- */
+/*                           Form Input Validation                            */
+/* -------------------------------------------------------------------------- */
+
+const validationSettings = {
+  inputSelector: ".modal__form-input",
+  submitButtonSelector: ".modal__button",
+  inactiveButtonClass: "modal__button_disabled",
+  inputErrorClass: "modal__input-error",
+  errorClass: "modal__input-error_visible",
+};
+
+const editFormValidator = new FormValidator(
+  validationSettings,
+  profileEditForm
+);
+const addCardFormValidator = new FormValidator(validationSettings, addCardForm);
+
+editFormValidator.enableValidation();
+addCardFormValidator.enableValidation();

@@ -67,7 +67,6 @@ function enableValidation(options) {
     formEl.addEventListener("submit", (e) => {
       e.preventDefault();
     });
-
     setEventListeners(formEl, options);
   });
 }
