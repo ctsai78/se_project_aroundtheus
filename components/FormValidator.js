@@ -9,15 +9,15 @@ class FormValidator {
     this._form = formElement;
   }
 
-  _showInputError() {
+  _showInputError(inputEl) {
     this._errorMessageEl = this._form.querySelector(`#${inputEl.id}-error`);
     inputEl.classList.add(this._inputErrorClass);
     this._errorMessageEl.textContent = inputEl.validationMessage;
     this._errorMessageEl.classList.add(this._errorClass);
   }
 
-  _hideInputError() {
-    this._errorMessageEl = this._formEl.querySelector(`#${inputEl.id}-error`);
+  _hideInputError(inputEl) {
+    this._errorMessageEl = this._form.querySelector(`#${inputEl.id}-error`);
     inputEl.classList.remove(this._inputErrorClass);
     this._errorMessageEl.textContent = " ";
     this._errorMessageEl.classList.remove(this._errorClass);
@@ -25,9 +25,10 @@ class FormValidator {
 
   _toggleButtonState() {
     if (this._hasInvalidInput()) {
+      1;
       this._disabledButton();
     } else {
-      this._enabledButton(this._submitButton, { inactiveButtonClass });
+      this._enabledButton();
     }
   }
 
@@ -58,7 +59,7 @@ class FormValidator {
     this._submitButton = this._form.querySelector(this._submitButtonSelector);
 
     this._toggleButtonState();
-    console.log(this._inputEls);
+
     this._inputEls.forEach((inputEl) => {
       inputEl.addEventListener("input", (e) => {
         this._checkInputValidity(inputEl);
