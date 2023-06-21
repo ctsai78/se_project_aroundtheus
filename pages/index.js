@@ -72,13 +72,13 @@ const cardSelector = "#card-template";
 
 function handleEscape(event) {
   if (event.key === "Escape") {
-    const openedModal = document.querySelector(".modal__opened");
+    const openedModal = document.querySelector(".modal_opened");
     closeModal(openedModal);
   }
 }
 
 function openModal(modal) {
-  modal.classList.add("modal__opened");
+  modal.classList.add("modal_opened");
   document.addEventListener("keydown", handleEscape);
   modal.addEventListener("mousedown", closeModalOnRemoteClick);
 }
@@ -97,7 +97,7 @@ function openModal(modal) {
 // }
 
 function closeModal(modal) {
-  modal.classList.remove("modal__opened");
+  modal.classList.remove("modal_opened");
   document.removeEventListener("keydown", handleEscape);
   modal.removeEventListener("mousedown", closeModalOnRemoteClick);
 }
@@ -126,6 +126,10 @@ function closeModal(modal) {
 //   return cardElement;
 // }
 
+function disabledButton(submitButton, { inactiveButtonClass }) {
+  submitButton.classList.add(inactiveButtonClass);
+  submitButton.disabled = true;
+}
 /* ------------------------------- Create Card ------------------------------ */
 function renderCard(cardData, wrapper) {
   // delete below code later
@@ -154,6 +158,7 @@ function handleAddCardFormSubmit(e) {
   renderCard({ name, link }, cardListEl);
   addCardForm.reset();
   closeModal(addCardModal);
+  // disabledButton(addCardSubmitButton, config);
   disabledButton(addCardSubmitButton, config);
 }
 
@@ -194,10 +199,6 @@ previewImageModalCloseButton.addEventListener("click", () =>
   closeModal(previewImageModal)
 );
 
-previewImageModal.addEventListener("click", () =>
-  closeModal(previewImageModal)
-);
-
 /* -------------------------------------------------------------------------- */
 /*                           GENERATE INITIAL CARDS                           */
 /* -------------------------------------------------------------------------- */
@@ -224,3 +225,15 @@ const addCardFormValidator = new FormValidator(validationSettings, addCardForm);
 
 editFormValidator.enableValidation();
 addCardFormValidator.enableValidation();
+
+/* -------------------------------------------------------------------------- */
+/*                                                                            */
+/* -------------------------------------------------------------------------- */
+const config = {
+  formSelector: ".modal__form",
+  inputSelector: ".modal__form-input",
+  submitButtonSelector: ".modal__button",
+  inactiveButtonClass: "modal__button_disabled",
+  inputErrorClass: "modal__input-error",
+  errorClass: "modal__input-error_visible",
+};

@@ -9,7 +9,7 @@ const previewImageModal = document.querySelector("#preview-image-modal");
 /*                                  FUNCTIONS                                 */
 /* -------------------------------------------------------------------------- */
 function openModal(modal) {
-  modal.classList.add("modal__opened");
+  modal.classList.add("modal_opened");
   document.addEventListener("keydown", handleEscape);
   modal.addEventListener("mousedown", closeModalOnRemoteClick);
 }
@@ -25,10 +25,11 @@ function openModalPreview(modal, cardData) {
   cardImagePreviewEl.alt = cardData.name;
   cardTitlePreviewEl.textContent = cardData.name;
   openModal(modal);
+  //   previewImageModal.addEventListener("mousedown", closeModalOnRemoteClick);
 }
 
 function closeModal(modal) {
-  modal.classList.remove("modal__opened");
+  modal.classList.remove("modal_opened");
   document.removeEventListener("keydown", handleEscape);
   modal.removeEventListener("mousedown", closeModalOnRemoteClick);
 }
@@ -39,7 +40,7 @@ function closeModal(modal) {
 
 function handleEscape(event) {
   if (event.key === "Escape") {
-    const openedModal = document.querySelector(".modal__opened");
+    const openedModal = document.querySelector(".modal_opened");
     closeModal(openedModal);
   }
 }
