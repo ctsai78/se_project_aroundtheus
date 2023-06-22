@@ -160,7 +160,7 @@ function handleAddCardFormSubmit(e) {
   renderCard({ name, link }, cardListEl);
   addCardForm.reset();
   utils.closeModal(addCardModal);
-  FormValidator.disableButton();
+  addCardFormValidator.disableButton();
 }
 
 // function closeModalOnRemoteClick(evt) {
