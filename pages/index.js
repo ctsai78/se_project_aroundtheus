@@ -127,10 +127,11 @@ const cardSelector = "#card-template";
 //   return cardElement;
 // }
 
-function disabledButton(submitButton, { inactiveButtonClass }) {
-  submitButton.classList.add(inactiveButtonClass);
-  submitButton.disabled = true;
-}
+// function disabledButton(submitButton, { inactiveButtonClass }) {
+//   submitButton.classList.add(inactiveButtonClass);
+//   submitButton.disabled = true;
+// }
+
 /* ------------------------------- Create Card ------------------------------ */
 function renderCard(cardData, wrapper) {
   // delete below code later
@@ -159,18 +160,17 @@ function handleAddCardFormSubmit(e) {
   renderCard({ name, link }, cardListEl);
   addCardForm.reset();
   utils.closeModal(addCardModal);
-  // disabledButton(addCardSubmitButton, config);
-  disabledButton(addCardSubmitButton, config);
+  FormValidator.disableButton();
 }
 
-function closeModalOnRemoteClick(evt) {
-  // target is the element on which the event happened
-  // currentTarget is the popup
-  // if they are the same then we should close the popup
-  if (evt.target === evt.currentTarget) {
-    utils.closeModal(evt.target);
-  }
-}
+// function closeModalOnRemoteClick(evt) {
+//   // target is the element on which the event happened
+//   // currentTarget is the popup
+//   // if they are the same then we should close the popup
+//   if (evt.target === evt.currentTarget) {
+//     utils.closeModal(evt.target);
+//   }
+// }
 /* -------------------------------------------------------------------------- */
 /*                               EVENT LISTENERS                              */
 /* -------------------------------------------------------------------------- */
