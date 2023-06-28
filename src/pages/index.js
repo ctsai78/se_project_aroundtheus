@@ -1,3 +1,4 @@
+import "./index.css";
 import FormValidator from "../components/FormValidator.js";
 import Card from "../components/Card.js";
 import utils from "../utils/utils.js";
@@ -39,7 +40,6 @@ const addCardModal = document.querySelector("#add-card-modal");
 const profileEditForm = profileEditModal.querySelector(".modal__form");
 const addCardForm = addCardModal.querySelector(".modal__form");
 const previewImageModal = document.querySelector("#preview-image-modal");
-const modalContainer = document.querySelector(".modal__container");
 
 //BUTTONS AND OTHER DOM NODES
 const profileEditButton = document.querySelector("#profile-edit-button");
@@ -132,16 +132,6 @@ const cardSelector = "#card-template";
 //   submitButton.disabled = true;
 // }
 
-/* ------------------------------- Create Card ------------------------------ */
-function renderCard(cardData, wrapper) {
-  // delete below code later
-  // const cardElement = getCardElement(cardData);
-  // wrapper.prepend(cardElement);
-
-  const card = new Card(cardData, cardSelector);
-  wrapper.prepend(card.getView());
-}
-
 /* -------------------------------------------------------------------------- */
 /*                               EVENT HANDLERS                               */
 /* -------------------------------------------------------------------------- */
@@ -204,7 +194,30 @@ previewImageModalCloseButton.addEventListener("click", () =>
 /*                           GENERATE INITIAL CARDS                           */
 /* -------------------------------------------------------------------------- */
 
-initialCards.forEach((cardData) => renderCard(cardData, cardListEl));
+const cardList = new Section(
+  {
+    initialCards,
+    renderer: (cardData) => {
+      const card = new Card(cardData, cardSelector);
+      return card;
+    },
+  },
+  card__list
+);
+
+cardList.addItem;
+
+/* ------------------------------- Create Card ------------------------------ */
+// initialCards.forEach((cardData) => renderCard(cardData, cardListEl));
+
+// function renderCard(cardData, wrapper) {
+//   // delete below code later
+//   // const cardElement = getCardElement(cardData);
+//   // wrapper.prepend(cardElement);
+
+//   const card = new Card(cardData, cardSelector);
+//   wrapper.prepend(card.getView());
+// }
 
 /* -------------------------------------------------------------------------- */
 /*                           Form Input Validation                            */
@@ -228,13 +241,12 @@ editFormValidator.enableValidation();
 addCardFormValidator.enableValidation();
 
 /* -------------------------------------------------------------------------- */
-/*                                                                            */
+/*                                  Project 8                                 */
 /* -------------------------------------------------------------------------- */
-const config = {
-  formSelector: ".modal__form",
-  inputSelector: ".modal__form-input",
-  submitButtonSelector: ".modal__button",
-  inactiveButtonClass: "modal__button_disabled",
-  inputErrorClass: "modal__input-error",
-  errorClass: "modal__input-error_visible",
-};
+
+// const userInfo = new UserInfo({
+//   userNameSelector: profile__title,
+//   userDescriptionSelector: profile__description,
+// });
+
+// const imagePopup = new PopupWithImage(preview-image-modal);

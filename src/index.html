@@ -8,20 +8,23 @@
     <meta name="description" content="Sprint 3 Project" />
     <meta name="keywords" content="SE, Project, Sprint 3" />
     <meta name="author" content="Chang" />
-    <link rel="stylesheet" href="./pages/index.css" />
     <link rel="shortcut icon" href="./favicon.ico" />
   </head>
 
   <body class="page">
     <div class="page__content">
       <header class="header">
-        <img src="./images/logo.svg" class="header__logo" alt="header_logo" />
+        <img
+          src="<%=require('./images/logo.svg')%>"
+          class="header__logo"
+          alt="header_logo"
+        />
       </header>
 
       <main class="content">
         <section class="profile page__section">
           <img
-            src="./images/profile-photo.svg"
+            src="<%=require('./images/profile-photo.svg')%>"
             alt="jacques-cousteau"
             class="profile__image"
           />
@@ -147,6 +150,5 @@
     <!-- ---------------- Delete after import FormValidator.js ----------------- -->
     <!-- <script src="./scripts/validation.js" defer></script> -->
     <!-- ----------------------------------------------------------------------- -->
-    <script type="module" src="./pages/index.js" defer></script>
   </body>
 </html>
