@@ -3,8 +3,10 @@ import Popup from "./Popup.js";
 class PopupWithImage extends Popup {
   constructor(popupSelector) {
     super(popupSelector);
-    this._popupImage = document.querySelector("#${popupSelector}");
+    // this._popupImage = document.querySelector("#${popupSelector}");
   }
+
+  // how to pass in {link, name}?
 
   open({ link, name }) {
     // add an image to the popup and the corresponding image src attribute along with a caption for the image.

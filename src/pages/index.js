@@ -2,6 +2,7 @@ import "./index.css";
 import FormValidator from "../components/FormValidator.js";
 import Card from "../components/Card.js";
 import utils from "../utils/utils.js";
+import Section from "../components/section.js";
 
 const initialCards = [
   {
@@ -199,13 +200,11 @@ const cardList = new Section(
     initialCards,
     renderer: (cardData) => {
       const card = new Card(cardData, cardSelector);
-      return card;
+      cardList.addItem(card.getView());
     },
   },
-  card__list
+  ".card__list"
 );
-
-cardList.addItem;
 
 /* ------------------------------- Create Card ------------------------------ */
 // initialCards.forEach((cardData) => renderCard(cardData, cardListEl));
@@ -249,4 +248,4 @@ addCardFormValidator.enableValidation();
 //   userDescriptionSelector: profile__description,
 // });
 
-// const imagePopup = new PopupWithImage(preview-image-modal);
+// const imagePopup = new PopupWithImage("preview-image-modal");
