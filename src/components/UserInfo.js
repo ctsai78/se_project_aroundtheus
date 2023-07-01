@@ -1,8 +1,8 @@
 class UserInfo {
   constructor({ userNameSelector, userDescriptionSelector }) {
-    this._userNameElement = document.querySelector(".${userNameSelector}");
-    this.__userDescriptionElement = document.querySelector(
-      ".${userDescriptionSelector}"
+    this._userNameElement = document.querySelector(userNameSelector);
+    this._userDescriptionElement = document.querySelector(
+      userDescriptionSelector
     );
   }
 

@@ -2,7 +2,7 @@ import utils from "../utils/utils";
 
 export default class Popup {
   constructor(popupSelector) {
-    this._popupElement = document.querySelector("#${popupSelector}");
+    this._popupElement = document.querySelector(popupSelector);
     this._popupElementCloseButton =
       this._popupElement.querySelector(".modal__close");
   }
