@@ -28,9 +28,3 @@ class PopupWithForm extends Popup {
 }
 
 export default PopupWithForm;
-
-//index.js
-
-// const newCardPopup = new PopupWithForm('#new-card-popup',() => {})
-// newCardPopup.open();
-// newCardPopup.open();
