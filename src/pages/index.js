@@ -110,11 +110,11 @@ profileModalCloseButton.addEventListener("click", () =>
 // profileEditForm.addEventListener("submit", handleProfileEditSubmit);
 
 // //Add New Card
-// addNewCardButton.addEventListener("click", () => utils.openModal(addCardModal));
+addNewCardButton.addEventListener("click", () => utils.openModal(addCardModal));
 
-// addCardModalCloseButton.addEventListener("click", () =>
-//   utils.closeModal(addCardModal)
-// );
+addCardModalCloseButton.addEventListener("click", () =>
+  utils.closeModal(addCardModal)
+);
 
 // addCardForm.addEventListener("submit", handleAddCardFormSubmit);
 
