@@ -153,7 +153,7 @@ cardList.renderItems();
 // }
 
 /* -------------------------------------------------------------------------- */
-/*                           Form Input Validation                            */
+/*                      Project 7 Form Input Validation                       */
 /* -------------------------------------------------------------------------- */
 
 const validationSettings = {
