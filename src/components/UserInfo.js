@@ -6,9 +6,9 @@ class UserInfo {
     );
   }
 
-  setUserInfo({ userName, userDescription }) {
-    this._userNameElement.textContent = userName;
-    this._userDescriptionElement.textContent = userDescription;
+  setUserInfo(inputValues) {
+    this._userNameElement.textContent = inputValues.title;
+    this._userDescriptionElement.textContent = inputValues.description;
   }
 
   getUserInfo() {

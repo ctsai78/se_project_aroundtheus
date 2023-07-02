@@ -1,5 +1,4 @@
 import Popup from "./Popup.js";
-import UserInfo from "./UserInfo.js";
 
 class PopupWithForm extends Popup {
   constructor(popupSelector, handleFormSubmit) {
@@ -9,21 +8,25 @@ class PopupWithForm extends Popup {
   }
 
   _getInputValues() {
-    // collects data from all the input fields and returns that data as an object
-    return (this._popupFormInputs =
-      this._popupForm.querySelectorAll("modal__form-input"));
+    const inputValues = {};
+    this._popupFormInputs =
+      this._popupForm.querySelectorAll(".modal__form-input");
+    this._popupFormInputs.forEach((input) => {
+      inputValues[input.name] = input.value;
+    });
+    return inputValues;
   }
 
   setEventListeners() {
-    this._popupForm.addEventListener(
-      "submit",
-      this._handleFormSubmit(this._popupFormInputs.value)
-    );
+    this._popupForm.addEventListener("submit", () => {
+      this._handleFormSubmit(this._getInputValues());
+      this.close();
+    });
   }
 
   close() {
-    this._popupForm.reset();
     super.close();
+    this._popupForm.reset();
   }
 }
 
