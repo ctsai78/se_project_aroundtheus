@@ -1,4 +1,5 @@
-import utils from "../utils/utils.js";
+// import utils from "../utils/utils.js";
+import PopupWithImage from "./PopupWithImage.js";
 
 class Card {
   constructor(data, cardSelector) {
@@ -16,7 +17,9 @@ class Card {
       this._cardElement.remove();
     });
     this._cardImageEl.addEventListener("click", () => {
-      utils.openModalPreview(utils.previewImageModal, this._cardData);
+      const previewimagePopup = new PopupWithImage("#preview-image-modal");
+      previewimagePopup.open(this._name, this._link);
+      previewimagePopup.setEventListeners();
     });
   }
 

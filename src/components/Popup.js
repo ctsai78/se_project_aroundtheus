@@ -1,5 +1,3 @@
-import utils from "../utils/utils";
-
 export default class Popup {
   constructor(popupSelector) {
     this._popupElement = document.querySelector(popupSelector);
@@ -9,7 +7,7 @@ export default class Popup {
 
   open() {
     this._popupElement.classList.add("modal_opened");
-    document.addEventListener("keydown", handleEscape);
+    document.addEventListener("keydown", this._handleEscClose());
   }
 
   close() {
@@ -17,10 +15,9 @@ export default class Popup {
     document.removeEventListener("keydown", this._handleEscClose());
   }
 
-  _handleEscClose(event) {
+  handleEscClose(event) {
     if (event.key === "Escape") {
-      const openedModal = document.querySelector(".modal_opened");
-      this.close(openedModal);
+      this.close();
     }
   }
 

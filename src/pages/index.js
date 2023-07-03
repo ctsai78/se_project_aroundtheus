@@ -124,7 +124,7 @@ addCardModalCloseButton.addEventListener("click", () =>
 // );
 
 /* -------------------------------------------------------------------------- */
-/*                           GENERATE INITIAL CARDS                           */
+/*                      Project 8 GENERATE INITIAL CARDS                      */
 /* -------------------------------------------------------------------------- */
 
 const cardList = new Section(
@@ -202,4 +202,5 @@ const addCardPopup = new PopupWithForm("#add-card-modal", (cardData) => {
 addCardPopup.setEventListeners();
 
 // Preview Image
-// const imagePopup = new PopupWithImage("preview-image-modal");
+// const previewimagePopup = new PopupWithImage("preview-image-modal");
+// previewimagePopup.handleCardClick();

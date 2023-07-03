@@ -6,9 +6,7 @@ class PopupWithImage extends Popup {
     // this._popupImage = document.querySelector("#${popupSelector}");
   }
 
-  // how to pass in {link, name}?
-
-  open({ link, name }) {
+  open(name, link) {
     // add an image to the popup and the corresponding image src attribute along with a caption for the image.
     this._popupElement.querySelector(".modal__title_preview").textContent =
       name;
@@ -16,6 +14,10 @@ class PopupWithImage extends Popup {
     image.src = link;
     image.alt = "${name}";
     super.open();
+  }
+
+  close() {
+    super.close();
   }
 }
 
