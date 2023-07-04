@@ -1,10 +1,8 @@
 import "./index.css";
 import FormValidator from "../components/FormValidator.js";
 import Card from "../components/Card.js";
-import utils from "../utils/utils.js";
 import Section from "../components/section.js";
 import UserInfo from "../components/UserInfo.js";
-// import PopupWithImage from "../components/PopupWithImage.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 
 const initialCards = [
@@ -72,27 +70,6 @@ const cardTemplate =
 const cardSelector = "#card-template";
 
 /* -------------------------------------------------------------------------- */
-/*                               EVENT HANDLERS                               */
-/* -------------------------------------------------------------------------- */
-
-// function handleProfileEditSubmit(e) {
-//   e.preventDefault();
-//   profileTitle.textContent = profileTitleInput.value;
-//   profileDescription.textContent = profileDescriptionInput.value;
-//   utils.closeModal(profileEditModal);
-// }
-
-// function handleAddCardFormSubmit(e) {
-//   e.preventDefault();
-//   const name = cardTitleInput.value;
-//   const link = cardUrlInput.value;
-//   renderCard({ name, link }, cardListEl);
-//   addCardForm.reset();
-//   utils.closeModal(addCardModal);
-//   addCardFormValidator.disableButton();
-// }
-
-/* -------------------------------------------------------------------------- */
 /*                               EVENT LISTENERS                              */
 /* -------------------------------------------------------------------------- */
 
@@ -100,28 +77,11 @@ const cardSelector = "#card-template";
 profileEditButton.addEventListener("click", () => {
   profileTitleInput.value = profileTitle.textContent;
   profileDescriptionInput.value = profileDescription.textContent;
-  utils.openModal(profileEditModal);
+  profileEditPopup.open();
 });
 
-profileModalCloseButton.addEventListener("click", () =>
-  utils.closeModal(profileEditModal)
-);
-
-// profileEditForm.addEventListener("submit", handleProfileEditSubmit);
-
 // //Add New Card
-addNewCardButton.addEventListener("click", () => utils.openModal(addCardModal));
-
-addCardModalCloseButton.addEventListener("click", () =>
-  utils.closeModal(addCardModal)
-);
-
-// addCardForm.addEventListener("submit", handleAddCardFormSubmit);
-
-// //Preview Image
-// previewImageModalCloseButton.addEventListener("click", () =>
-//   utils.closeModal(previewImageModal)
-// );
+addNewCardButton.addEventListener("click", () => addCardPopup.open());
 
 /* -------------------------------------------------------------------------- */
 /*                      Project 8 GENERATE INITIAL CARDS                      */
@@ -200,7 +160,3 @@ const addCardPopup = new PopupWithForm("#add-card-modal", (cardData) => {
 });
 
 addCardPopup.setEventListeners();
-
-// Preview Image
-// const previewimagePopup = new PopupWithImage("preview-image-modal");
-// previewimagePopup.handleCardClick();
