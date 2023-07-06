@@ -1,9 +1,10 @@
 import "./index.css";
 import FormValidator from "../components/FormValidator.js";
 import Card from "../components/Card.js";
-import Section from "../components/section.js";
+import Section from "../components/Section.js";
 import UserInfo from "../components/UserInfo.js";
 import PopupWithForm from "../components/PopupWithForm.js";
+import PopupWithImage from "../components/PopupWithImage.js";
 
 const initialCards = [
   {
@@ -70,13 +71,23 @@ const cardTemplate =
 const cardSelector = "#card-template";
 
 /* -------------------------------------------------------------------------- */
+/*                                  Function                                  */
+/* -------------------------------------------------------------------------- */
+
+const renderCard = (cardData) => {
+  const card = new Card(cardData, cardSelector, previewimagePopup);
+  cardList.addItem(card.getView());
+};
+
+/* -------------------------------------------------------------------------- */
 /*                               EVENT LISTENERS                              */
 /* -------------------------------------------------------------------------- */
 
 // // Edit Profile
 profileEditButton.addEventListener("click", () => {
-  profileTitleInput.value = profileTitle.textContent;
-  profileDescriptionInput.value = profileDescription.textContent;
+  const getUserInfo = userInfo.getUserInfo();
+  profileTitleInput.value = getUserInfo.userName;
+  profileDescriptionInput.value = getUserInfo.userDescription;
   profileEditPopup.open();
 });
 
@@ -87,30 +98,20 @@ addNewCardButton.addEventListener("click", () => addCardPopup.open());
 /*                      Project 8 GENERATE INITIAL CARDS                      */
 /* -------------------------------------------------------------------------- */
 
+// Preview image Card
+const previewimagePopup = new PopupWithImage("#preview-image-modal");
+previewimagePopup.setEventListeners();
+
+// Generate Card
 const cardList = new Section(
   {
     items: initialCards,
-    renderer: (cardData) => {
-      const card = new Card(cardData, cardSelector);
-      cardList.addItem(card.getView());
-    },
+    renderer: renderCard,
   },
   ".card__list"
 );
 
 cardList.renderItems();
-
-/* -------------------------------Project 7 Create Card ------------------------------ */
-// initialCards.forEach((cardData) => renderCard(cardData, cardListEl));
-
-// function renderCard(cardData, wrapper) {
-//   // delete below code later
-//   // const cardElement = getCardElement(cardData);
-//   // wrapper.prepend(cardElement);
-
-//   const card = new Card(cardData, cardSelector);
-//   wrapper.prepend(card.getView());
-// }
 
 /* -------------------------------------------------------------------------- */
 /*                      Project 7 Form Input Validation                       */
@@ -155,8 +156,7 @@ profileEditPopup.setEventListeners();
 // Add New Card
 
 const addCardPopup = new PopupWithForm("#add-card-modal", (cardData) => {
-  const card = new Card(cardData, cardSelector);
-  cardList.addItem(card.getView());
+  renderCard(cardData);
 });
 
 addCardPopup.setEventListeners();

@@ -1,5 +1,3 @@
-import Card from "./Card";
-
 class Section {
   constructor({ items, renderer }, containerSelector) {
     this._items = items;
@@ -8,9 +6,7 @@ class Section {
   }
 
   renderItems() {
-    this._items.forEach((cardData) => {
-      this._renderer(cardData);
-    });
+    this._items.forEach(this._renderer);
   }
 
   addItem(element) {
