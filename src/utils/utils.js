@@ -31,10 +31,6 @@ function closeModalOnRemoteClick(evt) {
 }
 
 export default {
-  previewImageModal,
   openModal,
-  openModalPreview,
   closeModal,
-  handleEscape,
-  closeModalOnRemoteClick,
 };

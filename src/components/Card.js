@@ -1,10 +1,10 @@
 class Card {
-  constructor(data, cardSelector, previewListener) {
+  constructor(data, cardSelector, handleImageCLick) {
     this._name = data.name;
     this._link = data.link;
     this._cardSelector = cardSelector;
     this._cardData = data;
-    this._previewListener = previewListener;
+    this._handleImageClick = handleImageCLick;
   }
 
   _setEventListeners() {
@@ -15,7 +15,7 @@ class Card {
       this._cardElement.remove();
     });
     this._cardImageEl.addEventListener("click", () => {
-      this._previewListener.open(this._name, this._link);
+      this._handleImageClick(this._name, this._link);
     });
   }
 

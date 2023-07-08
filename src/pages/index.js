@@ -75,7 +75,9 @@ const cardSelector = "#card-template";
 /* -------------------------------------------------------------------------- */
 
 const renderCard = (cardData) => {
-  const card = new Card(cardData, cardSelector, previewimagePopup);
+  const card = new Card(cardData, cardSelector, (name, link) =>
+    previewimagePopup.open(name, link)
+  );
   cardList.addItem(card.getView());
 };
 
@@ -85,9 +87,9 @@ const renderCard = (cardData) => {
 
 // // Edit Profile
 profileEditButton.addEventListener("click", () => {
-  const getUserInfo = userInfo.getUserInfo();
-  profileTitleInput.value = getUserInfo.userName;
-  profileDescriptionInput.value = getUserInfo.userDescription;
+  const userInfos = userInfo.getUserInfo();
+  profileTitleInput.value = userInfos.userName;
+  profileDescriptionInput.value = userInfos.userDescription;
   profileEditPopup.open();
 });
 
