@@ -102,7 +102,7 @@ addNewCardButton.addEventListener("click", () => addCardPopup.open());
 
 // Preview image Card
 const previewimagePopup = new PopupWithImage("#preview-image-modal");
-previewimagePopup.setEventListeners();
+// previewimagePopup.setEventListeners();
 
 // Generate Card
 const cardList = new Section(
@@ -153,7 +153,7 @@ const profileEditPopup = new PopupWithForm(
   }
 );
 
-profileEditPopup.setEventListeners();
+// profileEditPopup.setEventListeners();
 
 // Add New Card
 
@@ -161,4 +161,4 @@ const addCardPopup = new PopupWithForm("#add-card-modal", (cardData) => {
   renderCard(cardData);
 });
 
-addCardPopup.setEventListeners();
+// addCardPopup.setEventListeners();
