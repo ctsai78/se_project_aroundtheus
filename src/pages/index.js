@@ -87,6 +87,7 @@ const renderCard = (cardData) => {
 
 // // Edit Profile
 profileEditButton.addEventListener("click", () => {
+  editFormValidator.disableButton();
   const userInfos = userInfo.getUserInfo();
   profileTitleInput.value = userInfos.userName;
   profileDescriptionInput.value = userInfos.userDescription;
@@ -94,7 +95,10 @@ profileEditButton.addEventListener("click", () => {
 });
 
 // //Add New Card
-addNewCardButton.addEventListener("click", () => addCardPopup.open());
+addNewCardButton.addEventListener("click", () => {
+  addCardFormValidator.disableButton();
+  addCardPopup.open();
+});
 
 /* -------------------------------------------------------------------------- */
 /*                      Project 8 GENERATE INITIAL CARDS                      */
@@ -133,6 +137,7 @@ const editFormValidator = new FormValidator(
 const addCardFormValidator = new FormValidator(validationSettings, addCardForm);
 
 editFormValidator.enableValidation();
+
 addCardFormValidator.enableValidation();
 
 /* -------------------------------------------------------------------------- */
@@ -153,7 +158,6 @@ const profileEditPopup = new PopupWithForm(
 );
 
 // Add New Card
-
 const addCardPopup = new PopupWithForm("#add-card-modal", (cardData) => {
   renderCard(cardData);
 });

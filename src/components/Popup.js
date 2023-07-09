@@ -24,9 +24,7 @@ export default class Popup {
       this._handleOutsideClickClose
     );
 
-    this._popupElementCloseButton.addEventListener("click", () => {
-      this.close();
-    });
+    this._popupElementCloseButton.addEventListener("click", this.close);
   }
 
   _removeEventListeners() {
@@ -37,9 +35,7 @@ export default class Popup {
       this._handleOutsideClickClose
     );
 
-    this._popupElementCloseButton.removeEventListener("click", () => {
-      this.close();
-    });
+    this._popupElementCloseButton.removeEventListener("click", this.close);
   }
 
   _handleEscClose = (evt) => {

@@ -13,7 +13,7 @@ This project is about creating a webpage similar to Pinterest. The main differen
 
 **Technology and techniques used**
 
-Besieds the basic HTML and CSS knowledge, this project also applies grid layout and responsive design concepts.
+Besides the basic HTML and CSS knowledge, this project also applies grid layout and responsive design concepts.
 
 **Github**
 [Link to the project on Github](https://github.com/ctsai78/se_project_aroundtheus)
