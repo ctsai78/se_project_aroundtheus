@@ -161,3 +161,21 @@ const profileEditPopup = new PopupWithForm(
 const addCardPopup = new PopupWithForm("#add-card-modal", (cardData) => {
   renderCard(cardData);
 });
+
+/* -------------------------------------------------------------------------- */
+/*                                  Project 9                                 */
+/* -------------------------------------------------------------------------- */
+
+// api
+//   .getInitialCards()
+//   .then((result) => {
+//     // process the result
+//   })
+//   .catch((err) => {
+//     console.error(err); // log the error to the console
+//   });
+
+// 1. Loading user information from the server
+// 2. Loading cards from the server
+// 3. Editing the profile
+// 4. Adding a new card
