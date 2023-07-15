@@ -1,32 +1,27 @@
-class Api {
+export default class Api {
   constructor(options) {
-    // constructor body
+    this._url = options.url;
+    this._headers = options.headers;
   }
 
   getUserInfo() {
-    return fetch("https://around.nomoreparties.co/v1/cohort-3-en/users/me", {
-      headers: {
-        authorization: "b32399ae-a567-415e-9d15-bc2048a1a730",
-      },
+    return fetch(`${this._url}/users/me`, {
+      headers: this._headers,
     }).then((res) => {
       if (res.ok) {
         return res.json();
       }
-      // if the server returns an error, reject the promise
       return Promise.reject(`Error: ${res.status}`);
     });
   }
 
   getInitialCards() {
-    return fetch("https://around.nomoreparties.co/v1/cohort-3-en/cards", {
-      headers: {
-        authorization: "b32399ae-a567-415e-9d15-bc2048a1a730",
-      },
+    return fetch(`${this._url}/cards`, {
+      headers: this._headers,
     }).then((res) => {
       if (res.ok) {
         return res.json();
       }
-      // if the server returns an error, reject the promise
       return Promise.reject(`Error: ${res.status}`);
     });
   }
@@ -59,7 +54,7 @@ class Api {
   }
 
   deleteCard() {
-    fetch("https://around.nomoreparties.co/v1/groupId/cards/${cardID}", {
+    fetch("https://around.nomoreparties.co/v1/cohort-3-en/cards/${cardID}", {
       method: "DELETE",
       headers: {
         authorization: "b32399ae-a567-415e-9d15-bc2048a1a730",
@@ -127,13 +122,3 @@ const api = new Api({
 // Pass the array of function calls for getting user information and t
 // he list of cards to Promise.all() as a parameter.
 /* ------------------------------------ - ----------------------------------- */
-
-fetch("https://around.nomoreparties.co/v1/cohort-3-en/cards", {
-  headers: {
-    authorization: "b32399ae-a567-415e-9d15-bc2048a1a730",
-  },
-})
-  .then((res) => res.json())
-  .then((result) => {
-    console.log(result);
-  });

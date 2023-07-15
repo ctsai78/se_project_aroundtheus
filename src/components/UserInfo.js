@@ -7,8 +7,8 @@ class UserInfo {
   }
 
   setUserInfo(inputValues) {
-    this._userNameElement.textContent = inputValues.title;
-    this._userDescriptionElement.textContent = inputValues.description;
+    this._userNameElement.textContent = inputValues.name;
+    this._userDescriptionElement.textContent = inputValues.about;
   }
 
   getUserInfo() {

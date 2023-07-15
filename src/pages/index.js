@@ -5,33 +5,34 @@ import Section from "../components/Section.js";
 import UserInfo from "../components/UserInfo.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
+import Api from "../components/Api.js";
 
-const initialCards = [
-  {
-    name: "Yosemite Valley",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg",
-  },
-  {
-    name: "Lake Louise",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lake-louise.jpg",
-  },
-  {
-    name: "Bald Mountains",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/bald-mountains.jpg",
-  },
-  {
-    name: "Latemar",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/latemar.jpg",
-  },
-  {
-    name: "Vanoise National Park",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/vanoise.jpg",
-  },
-  {
-    name: "Lago di Braies",
-    link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lago.jpg",
-  },
-];
+// const initialCards = [
+//   {
+//     name: "Yosemite Valley",
+//     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg",
+//   },
+//   {
+//     name: "Lake Louise",
+//     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lake-louise.jpg",
+//   },
+//   {
+//     name: "Bald Mountains",
+//     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/bald-mountains.jpg",
+//   },
+//   {
+//     name: "Latemar",
+//     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/latemar.jpg",
+//   },
+//   {
+//     name: "Vanoise National Park",
+//     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/vanoise.jpg",
+//   },
+//   {
+//     name: "Lago di Braies",
+//     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lago.jpg",
+//   },
+// ];
 
 /* -------------------------------------------------------------------------- */
 /*                                  ELEMENTS                                  */
@@ -108,15 +109,15 @@ addNewCardButton.addEventListener("click", () => {
 const previewimagePopup = new PopupWithImage("#preview-image-modal");
 
 // Generate Card
-const cardList = new Section(
-  {
-    items: initialCards,
-    renderer: renderCard,
-  },
-  ".card__list"
-);
+// const cardList = new Section(
+//   {
+//     items: initialCards,
+//     renderer: renderCard,
+//   },
+//   ".card__list"
+// );
 
-cardList.renderItems();
+// cardList.renderItems();
 
 /* -------------------------------------------------------------------------- */
 /*                      Project 7 Form Input Validation                       */
@@ -166,16 +167,43 @@ const addCardPopup = new PopupWithForm("#add-card-modal", (cardData) => {
 /*                                  Project 9                                 */
 /* -------------------------------------------------------------------------- */
 
-// api
-//   .getInitialCards()
-//   .then((result) => {
-//     // process the result
-//   })
-//   .catch((err) => {
-//     console.error(err); // log the error to the console
-//   });
+const api = new Api({
+  url: "https://around.nomoreparties.co/v1/cohort-3-en",
+  headers: {
+    authorization: "b32399ae-a567-415e-9d15-bc2048a1a730",
+    "Content-Type": "application/json",
+  },
+});
 
 // 1. Loading user information from the server
+api
+  .getUserInfo()
+  .then((result) => {
+    userInfo.setUserInfo({ name: result.name, about: result.about });
+  })
+  .catch((err) => {
+    console.error(err);
+  });
+
 // 2. Loading cards from the server
-// 3. Editing the profile
-// 4. Adding a new card
+
+api
+  .getInitialCards()
+  .then((result) => {
+    const initialCards = {};
+    for (let i = 0; i <= result.length; i++) {
+      initialCards[i] = { name: result[i].name, link: result[i].link };
+    }
+    const cardList = new Section(
+      {
+        items: initialCards,
+        renderer: renderCard,
+      },
+      ".card__list"
+    );
+
+    cardList.renderItems();
+  })
+  .catch((err) => {
+    console.error(err);
+  });
