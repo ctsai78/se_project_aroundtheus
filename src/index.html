@@ -67,7 +67,7 @@
             maxlength="40"
             minlength="2"
           />
-          <!-- Edit Error message class -->
+
           <span class="modal__input-error" id="profile-title-input-error">
           </span>
           <input
@@ -136,8 +136,16 @@
       </div>
     </div>
 
-    <!-- ------------------------- CARD LIST TEMPLATE -------------------------- -->
+    <!-- -------------------------- DELETE CARD MOADL -------------------------- -->
+    <div class="modal" id="delete-card-modal">
+      <div class="modal__container">
+        <button class="modal__close" type="button"></button>
+        <h2 class="modal__heading">Are you sure?</h2>
+        <button class="modal__button-delete" type="submit">Yes</button>
+      </div>
+    </div>
 
+    <!-- ------------------------- CARD LIST TEMPLATE -------------------------- -->
     <template class="" id="card-template">
       <li class="card__block">
         <button class="card__delete-button" type="button"></button>

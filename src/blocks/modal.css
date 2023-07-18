@@ -123,6 +123,26 @@
   cursor: default;
 }
 
+.modal__button-delete {
+  padding: 0;
+  margin-top: 14px;
+  width: 358px;
+  background-color: #000;
+  border-radius: 2px;
+  border: none;
+  font-family: "Inter", Arial, sans-serif;
+  font-weight: 400;
+  font-size: 18px;
+  line-height: 1.2;
+  height: 50px;
+  color: #fff;
+}
+
+.modal__button-delete:hover {
+  cursor: pointer;
+  opacity: 0.8;
+}
+
 .modal__image_preview {
   background: transparent;
   max-width: 75vw;

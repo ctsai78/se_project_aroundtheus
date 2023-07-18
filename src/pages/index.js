@@ -7,33 +7,6 @@ import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import Api from "../components/Api.js";
 
-// const initialCards = [
-//   {
-//     name: "Yosemite Valley",
-//     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/yosemite.jpg",
-//   },
-//   {
-//     name: "Lake Louise",
-//     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lake-louise.jpg",
-//   },
-//   {
-//     name: "Bald Mountains",
-//     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/bald-mountains.jpg",
-//   },
-//   {
-//     name: "Latemar",
-//     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/latemar.jpg",
-//   },
-//   {
-//     name: "Vanoise National Park",
-//     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/vanoise.jpg",
-//   },
-//   {
-//     name: "Lago di Braies",
-//     link: "https://practicum-content.s3.us-west-1.amazonaws.com/software-engineer/around-project/lago.jpg",
-//   },
-// ];
-
 /* -------------------------------------------------------------------------- */
 /*                                  ELEMENTS                                  */
 /* -------------------------------------------------------------------------- */
@@ -65,6 +38,7 @@ const cardTitleInput = addCardForm.querySelector(".modal__form-input-title");
 const cardUrlInput = addCardForm.querySelector(".modal__form-input-URL");
 
 //CARD LIST & TEMPLATE
+let cardList;
 const cardListEl = document.querySelector(".card__list");
 const cardTemplate =
   document.querySelector("#card-template").content.firstElementChild;
@@ -102,24 +76,6 @@ addNewCardButton.addEventListener("click", () => {
 });
 
 /* -------------------------------------------------------------------------- */
-/*                      Project 8 GENERATE INITIAL CARDS                      */
-/* -------------------------------------------------------------------------- */
-
-// Preview image Card
-const previewimagePopup = new PopupWithImage("#preview-image-modal");
-
-// Generate Card
-// const cardList = new Section(
-//   {
-//     items: initialCards,
-//     renderer: renderCard,
-//   },
-//   ".card__list"
-// );
-
-// cardList.renderItems();
-
-/* -------------------------------------------------------------------------- */
 /*                      Project 7 Form Input Validation                       */
 /* -------------------------------------------------------------------------- */
 
@@ -142,26 +98,44 @@ editFormValidator.enableValidation();
 addCardFormValidator.enableValidation();
 
 /* -------------------------------------------------------------------------- */
+/*                      Project 8 GENERATE INITIAL CARDS                      */
+/* -------------------------------------------------------------------------- */
+
+// Preview image Card
+const previewimagePopup = new PopupWithImage("#preview-image-modal");
+
+// Generate Card
+// const cardList = new Section(
+//   {
+//     items: initialCards,
+//     renderer: renderCard,
+//   },
+//   ".card__list"
+// );
+
+// cardList.renderItems();
+
+/* -------------------------------------------------------------------------- */
 /*                                  Project 8                                 */
 /* -------------------------------------------------------------------------- */
 
 // Edit Profile Info
-const userInfo = new UserInfo({
-  userNameSelector: ".profile__title",
-  userDescriptionSelector: ".profile__description",
-});
+// const userInfo = new UserInfo({
+//   userNameSelector: ".profile__title",
+//   userDescriptionSelector: ".profile__description",
+// });
 
-const profileEditPopup = new PopupWithForm(
-  "#profile-edit-modal",
-  (inputValues) => {
-    userInfo.setUserInfo(inputValues);
-  }
-);
+// const profileEditPopup = new PopupWithForm(
+//   "#profile-edit-modal",
+//   (inputValues) => {
+//     userInfo.setUserInfo(inputValues);
+//   }
+// );
 
 // Add New Card
-const addCardPopup = new PopupWithForm("#add-card-modal", (cardData) => {
-  renderCard(cardData);
-});
+// const addCardPopup = new PopupWithForm("#add-card-modal", (cardData) => {
+//   renderCard(cardData);
+// });
 
 /* -------------------------------------------------------------------------- */
 /*                                  Project 9                                 */
@@ -189,14 +163,8 @@ api
 
 api
   .getInitialCards()
-  .then((result) => {
-    const initialCards = {};
-
-    for (let i = 0; i < result.length; i++) {
-      initialCards[i] = { name: result[i].name, link: result[i].link };
-    }
-
-    const cardList = new Section(
+  .then((initialCards) => {
+    cardList = new Section(
       {
         items: initialCards,
         renderer: renderCard,
@@ -209,3 +177,26 @@ api
   .catch((err) => {
     console.error(err);
   });
+
+// 3. Editing the profile
+let userInfo = new UserInfo({
+  userNameSelector: ".profile__title",
+  userDescriptionSelector: ".profile__description",
+});
+
+const profileEditPopup = new PopupWithForm(
+  "#profile-edit-modal",
+  (inputValues) => {
+    userInfo.setUserInfo(inputValues);
+    api.editProfile(inputValues);
+    console.log(inputValues);
+  }
+);
+
+// 4. Adding a new card
+const addCardPopup = new PopupWithForm("#add-card-modal", (cardData) => {
+  renderCard(cardData);
+  api.addNewCard(cardData);
+});
+
+// // 5. Creating a popup for deleting a card

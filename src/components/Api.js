@@ -26,29 +26,24 @@ export default class Api {
     });
   }
 
-  editProfile() {
-    fetch("https://around.nomoreparties.co/v1/cohort-3-en/users/me", {
+  editProfile(inputValues) {
+    fetch(`${this._url}/users/me`, {
       method: "PATCH",
-      headers: {
-        authorization: "b32399ae-a567-415e-9d15-bc2048a1a730",
-        "Content-Type": "application/json",
-      },
+      headers: this._headers,
       body: JSON.stringify({
-        name: "Marie Skłodowska Curie",
-        about: "Physicist and Chemist",
+        name: inputValues.name,
+        about: inputValues.about,
       }),
     });
   }
-  addNewCard() {
-    fetch("https://around.nomoreparties.co/v1/cohort-3-en/users/cards", {
+
+  addNewCard(cardData) {
+    fetch(`${this._url}/cards`, {
       method: "POST",
-      headers: {
-        authorization: "b32399ae-a567-415e-9d15-bc2048a1a730",
-        "Content-Type": "application/json",
-      },
+      headers: this._headers,
       body: JSON.stringify({
-        name: "Marie Skłodowska Curie",
-        link: "Physicist and Chemist",
+        name: cardData.name,
+        link: cardData.link,
       }),
     });
   }
