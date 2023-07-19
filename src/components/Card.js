@@ -20,7 +20,7 @@ class Card {
     });
 
     this._deleteButton.addEventListener("click", () => {
-      this._handleDeleteClick(this.getView());
+      this._handleDeleteClick(this._cardID, this._cardElement);
     });
   }
 

@@ -27,38 +27,46 @@ export default class Api {
   }
 
   editProfile(inputValues) {
-    fetch(`${this._url}/users/me`, {
+    return fetch(`${this._url}/users/me`, {
       method: "PATCH",
       headers: this._headers,
       body: JSON.stringify({
         name: inputValues.name,
         about: inputValues.about,
       }),
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Error: ${res.status}`);
     });
   }
 
   addNewCard(cardData) {
-    fetch(`${this._url}/cards`, {
+    return fetch(`${this._url}/cards`, {
       method: "POST",
       headers: this._headers,
       body: JSON.stringify({
         name: cardData.name,
         link: cardData.link,
       }),
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Error: ${res.status}`);
     });
   }
 
-  deleteCard() {
-    fetch("https://around.nomoreparties.co/v1/cohort-3-en/cards/${cardID}", {
+  deleteCard(cardID) {
+    return fetch(`${this._url}/cards/${cardID}`, {
       method: "DELETE",
-      headers: {
-        authorization: "b32399ae-a567-415e-9d15-bc2048a1a730",
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        name: "Marie Skłodowska Curie",
-        link: "Physicist and Chemist",
-      }),
+      headers: this._headers,
+    }).then((res) => {
+      if (res.ok) {
+        return res.json();
+      }
+      return Promise.reject(`Error: ${res.status}`);
     });
   }
 

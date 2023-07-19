@@ -58,7 +58,13 @@ const renderCard = (cardData) => {
     cardData,
     cardSelector,
     (name, link) => previewimagePopup.open(name, link),
-    (cardElement) => deleteCardPopup.open(cardElement),
+    (cardID, cardElement) => {
+      deleteCardPopup.open();
+      deleteCardPopup.setSubmitAction(
+        api.deleteCard(cardID),
+        cardElement.remove()
+      );
+    },
     userID
   );
   cardList.addItem(card.getView());
@@ -204,9 +210,14 @@ const profileEditPopup = new PopupWithForm(
 
 // 4. Adding a new card
 const addCardPopup = new PopupWithForm("#add-card-modal", (cardData) => {
-  renderCard(cardData);
-  api.addNewCard(cardData);
+  api.addNewCard(cardData).then((card) => {
+    renderCard(card);
+  });
 });
 
 // // 5. Creating a popup for deleting a card
 const deleteCardPopup = new PopupDeleteCard("#delete-card-modal");
+
+// api
+//   .deleteCard("64b75ae9fa84181a54c8d527")
+//   .then((result) => console.log(result));
