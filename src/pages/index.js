@@ -6,10 +6,14 @@ import UserInfo from "../components/UserInfo.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import Api from "../components/Api.js";
+import PopupDeleteCard from "../components/PopupDeleteCard.js";
 
 /* -------------------------------------------------------------------------- */
 /*                                  ELEMENTS                                  */
 /* -------------------------------------------------------------------------- */
+
+// UserInfo
+let userID;
 
 // WRAPPERS
 const profileEditModal = document.querySelector("#profile-edit-modal");
@@ -50,8 +54,12 @@ const cardSelector = "#card-template";
 /* -------------------------------------------------------------------------- */
 
 const renderCard = (cardData) => {
-  const card = new Card(cardData, cardSelector, (name, link) =>
-    previewimagePopup.open(name, link)
+  const card = new Card(
+    cardData,
+    cardSelector,
+    (name, link) => previewimagePopup.open(name, link),
+    (cardElement) => deleteCardPopup.open(cardElement),
+    userID
   );
   cardList.addItem(card.getView());
 };
@@ -152,8 +160,9 @@ const api = new Api({
 // 1. Loading user information from the server
 api
   .getUserInfo()
-  .then((result) => {
-    userInfo.setUserInfo({ name: result.name, about: result.about });
+  .then((user) => {
+    userInfo.setUserInfo({ name: user.name, about: user.about });
+    userID = user._id;
   })
   .catch((err) => {
     console.error(err);
@@ -200,3 +209,4 @@ const addCardPopup = new PopupWithForm("#add-card-modal", (cardData) => {
 });
 
 // // 5. Creating a popup for deleting a card
+const deleteCardPopup = new PopupDeleteCard("#delete-card-modal");
