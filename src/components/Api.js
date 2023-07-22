@@ -74,6 +74,16 @@ export default class Api {
       return Promise.reject(`Error: ${res.status}`);
     });
   }
+
+  updateProfilePicture(link) {
+    return fetch(`${this._url}/users/me/avatar`, {
+      method: "PATCH",
+      headers: this._headers,
+      body: JSON.stringify({
+        avatar: cardData.link,
+      }),
+    }).then(this._response);
+  }
 }
 
 const api = new Api({
