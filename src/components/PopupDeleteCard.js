@@ -12,10 +12,6 @@ class PopupDeleteCard extends Popup {
     this._handleSubmit = callBack;
   }
 
-  _handleSubmit = () => {
-    this.close();
-  };
-
   _setEventListeners() {
     super._setEventListeners();
     this._popupSubmitButton.addEventListener("click", this._handleSubmit);

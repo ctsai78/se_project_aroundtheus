@@ -1,18 +1,31 @@
 class Card {
-  constructor(data, cardSelector, handleImageClick, handleDeleteClick, userID) {
+  constructor(
+    data,
+    cardSelector,
+    userID,
+    handleImageClick,
+    handleDeleteClick,
+    handleCardLike,
+    handleCardUnLike
+  ) {
     this._name = data.name;
     this._link = data.link;
     this._owner = data.owner;
     this._cardID = data._id;
     this._userID = userID;
+    this._cardLike = data.likes;
     this._cardSelector = cardSelector;
     this._handleImageClick = handleImageClick;
     this._handleDeleteClick = handleDeleteClick;
+    this._handleCardLike = handleCardLike;
+    this._handleCardUnLike = handleCardUnLike;
   }
 
   _setEventListeners() {
     this._likeButton.addEventListener("click", () => {
       this._likeButton.classList.toggle("card__like-button_active");
+      this._handleCardLike;
+      // this.checkCardLike();
     });
 
     this._cardImageEl.addEventListener("click", () => {
@@ -20,7 +33,7 @@ class Card {
     });
 
     this._deleteButton.addEventListener("click", () => {
-      this._handleDeleteClick(this._cardID, this._cardElement);
+      this._handleDeleteClick(this._cardID);
     });
   }
 
@@ -39,18 +52,36 @@ class Card {
     this._deleteButton = this._cardElement.querySelector(
       ".card__delete-button"
     );
+    this._likeNumber = this._cardElement.querySelector(".card__like-number");
 
     this._setEventListeners();
 
     this._cardImageEl.src = this._link;
     this._cardImageEl.alt = this._name;
     this._cardTitleEl.textContent = this._name;
+    this._likeNumber.textContent = this._cardLike.length;
 
     if (this._owner._id != this._userID) {
       this._deleteButton.remove();
     }
 
+    this.checkCardLike();
+
     return this._cardElement;
+  }
+
+  removeCard() {
+    this._cardElement.remove();
+  }
+
+  checkCardLike() {
+    if (this._cardLike.some((cardLike) => (cardLike._id = this._userID))) {
+      // this._likeButton.classList.add("card__like-button_active");
+      console.log("card liked");
+    } else {
+      // this._likeButton.classList.remove("card__like-button_active");
+      console.log("cardnot liked");
+    }
   }
 }
 

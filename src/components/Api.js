@@ -2,28 +2,19 @@ export default class Api {
   constructor(options) {
     this._url = options.url;
     this._headers = options.headers;
+    this._response = options.response;
   }
 
   getUserInfo() {
     return fetch(`${this._url}/users/me`, {
       headers: this._headers,
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
-    });
+    }).then(this._response);
   }
 
   getInitialCards() {
     return fetch(`${this._url}/cards`, {
       headers: this._headers,
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
-    });
+    }).then(this._response);
   }
 
   editProfile(inputValues) {
@@ -34,12 +25,7 @@ export default class Api {
         name: inputValues.name,
         about: inputValues.about,
       }),
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
-    });
+    }).then(this._response);
   }
 
   addNewCard(cardData) {
@@ -50,50 +36,28 @@ export default class Api {
         name: cardData.name,
         link: cardData.link,
       }),
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
-    });
+    }).then(this._response);
   }
 
   deleteCard(cardID) {
     return fetch(`${this._url}/cards/${cardID}`, {
       method: "DELETE",
       headers: this._headers,
-    }).then((res) => {
-      if (res.ok) {
-        return res.json();
-      }
-      return Promise.reject(`Error: ${res.status}`);
-    });
+    }).then(this._response);
   }
 
-  likeCard() {
-    fetch(
-      "https://around.nomoreparties.co/v1/cohort-3-en/cards/likes/${cardID}",
-      {
-        method: "PUT",
-        headers: {
-          authorization: "b32399ae-a567-415e-9d15-bc2048a1a730",
-          "Content-Type": "application/json",
-        },
-      }
-    );
+  likeCard(cardID) {
+    return fetch(`${this._url}/cards/likes/${cardID}`, {
+      method: "PUT",
+      headers: this._headers,
+    }).then(this._response);
   }
 
-  unlikeCard() {
-    fetch(
-      "https://around.nomoreparties.co/v1/cohort-3-en/cards/likes/${cardID}",
-      {
-        method: "DELETE",
-        headers: {
-          authorization: "b32399ae-a567-415e-9d15-bc2048a1a730",
-          "Content-Type": "application/json",
-        },
-      }
-    );
+  unlikeCard(cardID) {
+    return fetch(`${this._url}/cards/likes/${cardID}`, {
+      method: "DELETE",
+      headers: this._headers,
+    }).then(this._response);
   }
 
   updateProfilePicture() {

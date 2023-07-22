@@ -57,15 +57,26 @@ const renderCard = (cardData) => {
   const card = new Card(
     cardData,
     cardSelector,
+    userID,
+    // handleImageClick
     (name, link) => previewimagePopup.open(name, link),
-    (cardID, cardElement) => {
+    // handleDeleteClick
+    (cardID) => {
+      deleteCardPopup.setSubmitAction(() => {
+        api.deleteCard(cardID).then(() => {
+          card.removeCard(), deleteCardPopup.close();
+        });
+      });
       deleteCardPopup.open();
-      deleteCardPopup.setSubmitAction(
-        api.deleteCard(cardID),
-        cardElement.remove()
-      );
     },
-    userID
+    // handleCardLike
+    (cardID) => {
+      api.likeCard(cardID).then();
+    },
+    // handleCardUnLike
+    (cardID) => {
+      api.unlikeCard(cardID).then();
+    }
   );
   cardList.addItem(card.getView());
 };
@@ -161,6 +172,12 @@ const api = new Api({
     authorization: "b32399ae-a567-415e-9d15-bc2048a1a730",
     "Content-Type": "application/json",
   },
+  response: (res) => {
+    if (res.ok) {
+      return res.json();
+    }
+    return Promise.reject(`Error: ${res.status}`);
+  },
 });
 
 // 1. Loading user information from the server
@@ -204,7 +221,6 @@ const profileEditPopup = new PopupWithForm(
   (inputValues) => {
     userInfo.setUserInfo(inputValues);
     api.editProfile(inputValues);
-    console.log(inputValues);
   }
 );
 
@@ -215,9 +231,14 @@ const addCardPopup = new PopupWithForm("#add-card-modal", (cardData) => {
   });
 });
 
-// // 5. Creating a popup for deleting a card
+// 5. & 6. Creating a popup for deleting a card
 const deleteCardPopup = new PopupDeleteCard("#delete-card-modal");
 
-// api
-//   .deleteCard("64b75ae9fa84181a54c8d527")
-//   .then((result) => console.log(result));
+// // 7. & 8. Adding and removing likes
+// api.likeCard("64bb16f92a8df51ad8b11637").then((card) => {
+//   if (card.likes.includes("123")) {
+//     console.log(card.likes);
+//   } else {
+//     console.log("not liked by you");
+//   }
+// });
