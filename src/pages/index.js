@@ -71,11 +71,11 @@ const renderCard = (cardData) => {
     },
     // handleCardLike
     (cardID) => {
-      api.likeCard(cardID).then();
+      api.likeCard(cardID).then((cardLike) => Card.displayCardLike(cardLike));
     },
     // handleCardUnLike
     (cardID) => {
-      api.unlikeCard(cardID).then();
+      api.unlikeCard(cardID).then((cardLike) => Card.displayCardLike(cardLike));
     }
   );
   cardList.addItem(card.getView());

@@ -59,19 +59,21 @@ class Card {
     this._cardImageEl.src = this._link;
     this._cardImageEl.alt = this._name;
     this._cardTitleEl.textContent = this._name;
-    this._likeNumber.textContent = this._cardLike.length;
 
     if (this._owner._id != this._userID) {
       this._deleteButton.remove();
     }
-
-    this.checkCardLike();
+    this.displayCardLike(this._cardLike);
+    // this.checkCardLike();
 
     return this._cardElement;
   }
 
   removeCard() {
     this._cardElement.remove();
+  }
+  displayCardLike(cardLike) {
+    this._likeNumber.textContent = cardLike.length;
   }
 
   checkCardLike() {
