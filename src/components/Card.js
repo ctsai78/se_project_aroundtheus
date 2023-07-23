@@ -61,9 +61,8 @@ class Card {
     if (this._owner._id != this._userID) {
       this._deleteButton.remove();
     }
-    this.displayCardLike(this._cardLike);
 
-    // this.checkCardLike();
+    this.displayCardLike(this._cardLike);
 
     return this._cardElement;
   }
@@ -71,19 +70,21 @@ class Card {
   removeCard() {
     this._cardElement.remove();
   }
+
   displayCardLike(cardLike) {
     this._likeNumber.textContent = cardLike.length;
+    if (cardLike.some((cardLike) => cardLike._id === this._userID)) {
+      this._likeButton.classList.add("card__like-button_active");
+    } else {
+      this._likeButton.classList.remove("card__like-button_active");
+    }
   }
 
   checkCardLike() {
-    if (this._cardLike.some((cardLike) => (cardLike._id = this._userID))) {
-      // this._likeButton.classList.add("card__like-button_active");
-      // this._handleCardUnLike;
-      console.log("card liked");
+    if (this._cardLike.some((cardLike) => cardLike._id === this._userID)) {
+      this._handleCardUnLike(this._cardID);
     } else {
-      // this._likeButton.classList.remove("card__like-button_active");
-      // this._handleCardLike;
-      console.log("cardnot liked");
+      this._handleCardLike(this._cardID);
     }
   }
 }

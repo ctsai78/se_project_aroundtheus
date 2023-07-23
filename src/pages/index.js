@@ -7,6 +7,7 @@ import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import Api from "../components/Api.js";
 import PopupDeleteCard from "../components/PopupDeleteCard.js";
+import PopupEditAvatar from "../components/PopupEditAvatar.js";
 
 /* -------------------------------------------------------------------------- */
 /*                                  ELEMENTS                                  */
@@ -30,6 +31,7 @@ const addCardModalCloseButton = addCardModal.querySelector(".modal__close");
 const previewImageModalCloseButton =
   previewImageModal.querySelector(".modal__close");
 const addCardSubmitButton = addCardModal.querySelector(".modal__button");
+const avatarEditButton = document.querySelector("#avatar-edit-button");
 
 // FORM INPUT DATA
 const profileTitle = document.querySelector(".profile__title");
@@ -71,11 +73,15 @@ const renderCard = (cardData) => {
     },
     // handleCardLike
     (cardID) => {
-      api.likeCard(cardID).then((cardLike) => Card.displayCardLike(cardLike));
+      api
+        .likeCard(cardID)
+        .then((cardData) => card.displayCardLike(cardData.likes));
     },
     // handleCardUnLike
     (cardID) => {
-      api.unlikeCard(cardID).then((cardLike) => Card.displayCardLike(cardLike));
+      api
+        .unlikeCard(cardID)
+        .then((cardData) => card.displayCardLike(cardData.likes));
     }
   );
   cardList.addItem(card.getView());
@@ -98,6 +104,11 @@ profileEditButton.addEventListener("click", () => {
 addNewCardButton.addEventListener("click", () => {
   addCardFormValidator.disableButton();
   addCardPopup.open();
+});
+
+// Edit Profile Avatar
+avatarEditButton.addEventListener("click", () => {
+  editAvatarPopup.open();
 });
 
 /* -------------------------------------------------------------------------- */
@@ -235,10 +246,7 @@ const addCardPopup = new PopupWithForm("#add-card-modal", (cardData) => {
 const deleteCardPopup = new PopupDeleteCard("#delete-card-modal");
 
 // // 7. & 8. Adding and removing likes
-// api.likeCard("64bb16f92a8df51ad8b11637").then((card) => {
-//   if (card.likes.includes("123")) {
-//     console.log(card.likes);
-//   } else {
-//     console.log("not liked by you");
-//   }
-// });
+// api included in render card function
+
+// 9. Updating profile picture
+const editAvatarPopup = new PopupEditAvatar("#edit-avatar-modal");

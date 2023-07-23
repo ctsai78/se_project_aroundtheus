@@ -13,6 +13,12 @@
   margin-right: 24px;
 }
 
+/* .profile__image:hover {
+  background-image: url(../images/edit-profile-button.svg);
+  cursor: pointer;
+  opacity: 0.6;
+} */
+
 .profile__info {
   display: grid;
   grid-template-areas:

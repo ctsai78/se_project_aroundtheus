@@ -27,7 +27,9 @@
             src="<%=require('./images/profile-photo.svg')%>"
             alt="jacques-cousteau"
             class="profile__image"
+            id="avatar-edit-button"
           />
+
           <div class="profile__info">
             <h1 class="profile__title">Jacques Cousteau</h1>
             <button
@@ -92,7 +94,7 @@
       <div class="modal__container">
         <button class="modal__close" type="button"></button>
         <h2 class="modal__heading">New Place</h2>
-        <form class="modal__form" id="add-card-from" name="profile-edit-form">
+        <form class="modal__form" id="add-card-form" name="profile-edit-form">
           <input
             type="text"
             name="name"
@@ -142,6 +144,28 @@
         <button class="modal__close" type="button"></button>
         <h2 class="modal__heading">Are you sure?</h2>
         <button class="modal__button-delete" type="submit">Yes</button>
+      </div>
+    </div>
+
+    <!-- --------------------------- Edit AVATAR MODAL ---------------------------- -->
+    <div class="modal" id="edit-avatar-modal">
+      <div class="modal__container">
+        <button class="modal__close" type="button"></button>
+        <h2 class="modal__heading">Change profile picture</h2>
+        <form class="modal__form" id="edit-avatar-form" name="avatar-edit-form">
+          <input
+            type="url"
+            name="link"
+            id="add-avatar-url"
+            class="modal__form-input modal__form-input-URL"
+            placeholder="Image URL"
+            required
+          />
+          <span class="modal__input-error" id="add-card-url-error"
+            >Please enter a web address.</span
+          >
+          <button class="modal__button" type="submit">Save</button>
+        </form>
       </div>
     </div>
 
