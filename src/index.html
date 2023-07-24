@@ -27,9 +27,15 @@
             src="<%=require('./images/profile-photo.svg')%>"
             alt="jacques-cousteau"
             class="profile__image"
-            id="avatar-edit-button"
+            id="profile-avatar"
           />
-
+          <div class="profile__image-overlay">
+            <img
+              src="<%=require('./images/edit-profile-button.svg')%>"
+              alt="edit-avatar"
+              class="profile__image-edit-icon"
+            />
+          </div>
           <div class="profile__info">
             <h1 class="profile__title">Jacques Cousteau</h1>
             <button
@@ -161,7 +167,7 @@
             placeholder="Image URL"
             required
           />
-          <span class="modal__input-error" id="add-card-url-error"
+          <span class="modal__input-error" id="add-avatar-url-error"
             >Please enter a web address.</span
           >
           <button class="modal__button" type="submit">Save</button>

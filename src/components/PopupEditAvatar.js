@@ -25,7 +25,6 @@ class PopupEditAvatar extends Popup {
 
   _setEventListeners() {
     super._setEventListeners();
-
     this._popupForm.addEventListener("submit", this._handleSubmitButton);
   }
 

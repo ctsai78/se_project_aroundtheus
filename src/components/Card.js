@@ -71,6 +71,11 @@ class Card {
     this._cardElement.remove();
   }
 
+  updateCardLike(cardLike) {
+    this._cardLike = cardLike;
+    this.displayCardLike(cardLike);
+  }
+
   displayCardLike(cardLike) {
     this._likeNumber.textContent = cardLike.length;
     if (cardLike.some((cardLike) => cardLike._id === this._userID)) {

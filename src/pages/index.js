@@ -19,36 +19,31 @@ let userID;
 // WRAPPERS
 const profileEditModal = document.querySelector("#profile-edit-modal");
 const addCardModal = document.querySelector("#add-card-modal");
+const avatarEditModal = document.querySelector("#edit-avatar-modal");
 const profileEditForm = profileEditModal.querySelector(".modal__form");
 const addCardForm = addCardModal.querySelector(".modal__form");
-const previewImageModal = document.querySelector("#preview-image-modal");
+const avatarEditForm = avatarEditModal.querySelector(".modal__form");
 
 //BUTTONS AND OTHER DOM NODES
 const profileEditButton = document.querySelector("#profile-edit-button");
-const profileModalCloseButton = profileEditModal.querySelector(".modal__close");
+const profileEditFormButton = profileEditModal.querySelector(".modal__button");
+
 const addNewCardButton = document.querySelector(".profile__add-button");
-const addCardModalCloseButton = addCardModal.querySelector(".modal__close");
-const previewImageModalCloseButton =
-  previewImageModal.querySelector(".modal__close");
-const addCardSubmitButton = addCardModal.querySelector(".modal__button");
-const avatarEditButton = document.querySelector("#avatar-edit-button");
+const addCardFormButton = addCardForm.querySelector(".modal__button");
+
+const avatarEditButton = document.querySelector(".profile__image-overlay");
+const profileAvatar = document.querySelector("#profile-avatar");
+const avatarEditFormButton = avatarEditModal.querySelector(".modal__button");
 
 // FORM INPUT DATA
-const profileTitle = document.querySelector(".profile__title");
-const profileDescription = document.querySelector(".profile__description");
+
 const profileTitleInput = document.querySelector("#profile-title-input");
 const profileDescriptionInput = document.querySelector(
   "#profile-description-input"
 );
-const cardTitleInput = addCardForm.querySelector(".modal__form-input-title");
-const cardUrlInput = addCardForm.querySelector(".modal__form-input-URL");
 
 //CARD LIST & TEMPLATE
 let cardList;
-const cardListEl = document.querySelector(".card__list");
-const cardTemplate =
-  document.querySelector("#card-template").content.firstElementChild;
-
 const cardSelector = "#card-template";
 
 /* -------------------------------------------------------------------------- */
@@ -73,15 +68,15 @@ const renderCard = (cardData) => {
     },
     // handleCardLike
     (cardID) => {
-      api
-        .likeCard(cardID)
-        .then((cardData) => card.displayCardLike(cardData.likes));
+      api.likeCard(cardID).then((cardData) => {
+        card.updateCardLike(cardData.likes);
+      });
     },
     // handleCardUnLike
     (cardID) => {
-      api
-        .unlikeCard(cardID)
-        .then((cardData) => card.displayCardLike(cardData.likes));
+      api.unlikeCard(cardID).then((cardData) => {
+        card.updateCardLike(cardData.likes);
+      });
     }
   );
   cardList.addItem(card.getView());
@@ -108,6 +103,7 @@ addNewCardButton.addEventListener("click", () => {
 
 // Edit Profile Avatar
 avatarEditButton.addEventListener("click", () => {
+  editAvatarValidator.disableButton();
   editAvatarPopup.open();
 });
 
@@ -129,9 +125,14 @@ const editFormValidator = new FormValidator(
 );
 const addCardFormValidator = new FormValidator(validationSettings, addCardForm);
 
-editFormValidator.enableValidation();
+const editAvatarValidator = new FormValidator(
+  validationSettings,
+  avatarEditForm
+);
 
+editFormValidator.enableValidation();
 addCardFormValidator.enableValidation();
+editAvatarValidator.enableValidation();
 
 /* -------------------------------------------------------------------------- */
 /*                      Project 8 GENERATE INITIAL CARDS                      */
@@ -139,39 +140,6 @@ addCardFormValidator.enableValidation();
 
 // Preview image Card
 const previewimagePopup = new PopupWithImage("#preview-image-modal");
-
-// Generate Card
-// const cardList = new Section(
-//   {
-//     items: initialCards,
-//     renderer: renderCard,
-//   },
-//   ".card__list"
-// );
-
-// cardList.renderItems();
-
-/* -------------------------------------------------------------------------- */
-/*                                  Project 8                                 */
-/* -------------------------------------------------------------------------- */
-
-// Edit Profile Info
-// const userInfo = new UserInfo({
-//   userNameSelector: ".profile__title",
-//   userDescriptionSelector: ".profile__description",
-// });
-
-// const profileEditPopup = new PopupWithForm(
-//   "#profile-edit-modal",
-//   (inputValues) => {
-//     userInfo.setUserInfo(inputValues);
-//   }
-// );
-
-// Add New Card
-// const addCardPopup = new PopupWithForm("#add-card-modal", (cardData) => {
-//   renderCard(cardData);
-// });
 
 /* -------------------------------------------------------------------------- */
 /*                                  Project 9                                 */
@@ -230,15 +198,20 @@ let userInfo = new UserInfo({
 const profileEditPopup = new PopupWithForm(
   "#profile-edit-modal",
   (inputValues) => {
+    profileEditFormButton.textContent = "Saving...";
     userInfo.setUserInfo(inputValues);
-    api.editProfile(inputValues);
+    api
+      .editProfile(inputValues)
+      .then(() => (profileEditFormButton.textContent = "Save"));
   }
 );
 
 // 4. Adding a new card
 const addCardPopup = new PopupWithForm("#add-card-modal", (cardData) => {
+  addCardFormButton.textContent = "Saving...";
   api.addNewCard(cardData).then((card) => {
     renderCard(card);
+    addCardFormButton.textContent = "Save";
   });
 });
 
@@ -249,4 +222,13 @@ const deleteCardPopup = new PopupDeleteCard("#delete-card-modal");
 // api included in render card function
 
 // 9. Updating profile picture
-const editAvatarPopup = new PopupEditAvatar("#edit-avatar-modal");
+const editAvatarPopup = new PopupEditAvatar(
+  "#edit-avatar-modal",
+  (inputValues) => {
+    avatarEditFormButton.textContent = "Saving...";
+    profileAvatar.src = inputValues.link;
+    api
+      .updateProfilePicture(inputValues)
+      .then(() => (avatarEditFormButton.textContent = "Save"));
+  }
+);
