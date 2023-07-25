@@ -6,8 +6,7 @@ import UserInfo from "../components/UserInfo.js";
 import PopupWithForm from "../components/PopupWithForm.js";
 import PopupWithImage from "../components/PopupWithImage.js";
 import Api from "../components/Api.js";
-import PopupDeleteCard from "../components/PopupDeleteCard.js";
-import PopupEditAvatar from "../components/PopupEditAvatar.js";
+import PopupWithConfirmation from "../components/PopupWithConfirmation.js";
 
 /* -------------------------------------------------------------------------- */
 /*                                  ELEMENTS                                  */
@@ -60,23 +59,32 @@ const renderCard = (cardData) => {
     // handleDeleteClick
     (cardID) => {
       deleteCardPopup.setSubmitAction(() => {
-        api.deleteCard(cardID).then(() => {
-          card.removeCard(), deleteCardPopup.close();
-        });
+        api
+          .deleteCard(cardID)
+          .then(() => {
+            card.removeCard(), deleteCardPopup.close();
+          })
+          .catch((err) => console.error(err));
       });
       deleteCardPopup.open();
     },
     // handleCardLike
     (cardID) => {
-      api.likeCard(cardID).then((cardData) => {
-        card.updateCardLike(cardData.likes);
-      });
+      api
+        .likeCard(cardID)
+        .then((cardData) => {
+          card.updateCardLike(cardData.likes);
+        })
+        .catch((err) => console.error(err));
     },
     // handleCardUnLike
     (cardID) => {
-      api.unlikeCard(cardID).then((cardData) => {
-        card.updateCardLike(cardData.likes);
-      });
+      api
+        .unlikeCard(cardID)
+        .then((cardData) => {
+          card.updateCardLike(cardData.likes);
+        })
+        .catch((err) => console.error(err));
     }
   );
   cardList.addItem(card.getView());
@@ -151,30 +159,45 @@ const api = new Api({
     authorization: "b32399ae-a567-415e-9d15-bc2048a1a730",
     "Content-Type": "application/json",
   },
-  response: (res) => {
-    if (res.ok) {
-      return res.json();
-    }
-    return Promise.reject(`Error: ${res.status}`);
-  },
 });
 
-// 1. Loading user information from the server
-api
-  .getUserInfo()
-  .then((user) => {
+// // 1. Loading user information from the server
+// api
+//   .getUserInfo()
+//   .then((user) => {
+//     userInfo.setUserInfo({ name: user.name, about: user.about });
+//     userID = user._id;
+//   })
+//   .catch((err) => {
+//     console.error(err);
+//   });
+
+// // 2. Loading cards from the server
+
+// api
+//   .getInitialCards()
+//   .then((initialCards) => {
+//     cardList = new Section(
+//       {
+//         items: initialCards,
+//         renderer: renderCard,
+//       },
+//       ".card__list"
+//     );
+//     cardList.renderItems();
+//   })
+//   .catch((err) => {
+//     console.error(err);
+//   });
+
+/* ------------------------------- Ａlternative ------------------------------ */
+
+Promise.all([api.getUserInfo(), api.getInitialCards()])
+  .then(([user, initialCards]) => {
+    // set user id
     userInfo.setUserInfo({ name: user.name, about: user.about });
     userID = user._id;
-  })
-  .catch((err) => {
-    console.error(err);
-  });
-
-// 2. Loading cards from the server
-
-api
-  .getInitialCards()
-  .then((initialCards) => {
+    // initialize cards section
     cardList = new Section(
       {
         items: initialCards,
@@ -182,12 +205,10 @@ api
       },
       ".card__list"
     );
-
     cardList.renderItems();
   })
-  .catch((err) => {
-    console.error(err);
-  });
+  .catch((err) => console.error(err));
+/* -------------------------------------------------------------------------- */
 
 // 3. Editing the profile
 let userInfo = new UserInfo({
@@ -198,37 +219,63 @@ let userInfo = new UserInfo({
 const profileEditPopup = new PopupWithForm(
   "#profile-edit-modal",
   (inputValues) => {
-    profileEditFormButton.textContent = "Saving...";
-    userInfo.setUserInfo(inputValues);
+    profileEditPopup.showLoading();
+
     api
       .editProfile(inputValues)
-      .then(() => (profileEditFormButton.textContent = "Save"));
-  }
+      .then(() => {
+        userInfo.setUserInfo(inputValues);
+        profileEditPopup.close();
+      })
+      .catch((err) => console.error(err))
+      .finally(() => {
+        profileEditPopup.hideLoading();
+      });
+  },
+  "Saving..."
 );
 
 // 4. Adding a new card
-const addCardPopup = new PopupWithForm("#add-card-modal", (cardData) => {
-  addCardFormButton.textContent = "Saving...";
-  api.addNewCard(cardData).then((card) => {
-    renderCard(card);
-    addCardFormButton.textContent = "Save";
-  });
-});
+const addCardPopup = new PopupWithForm(
+  "#add-card-modal",
+  (cardData) => {
+    addCardPopup.showLoading();
+    api
+      .addNewCard(cardData)
+      .then((card) => {
+        renderCard(card);
+        addCardPopup.close();
+      })
+      .catch((err) => console.error(err))
+      .finally(() => {
+        addCardPopup.hideLoading();
+      });
+  },
+  "Saving..."
+);
 
 // 5. & 6. Creating a popup for deleting a card
-const deleteCardPopup = new PopupDeleteCard("#delete-card-modal");
+const deleteCardPopup = new PopupWithConfirmation("#delete-card-modal");
 
 // // 7. & 8. Adding and removing likes
 // api included in render card function
 
 // 9. Updating profile picture
-const editAvatarPopup = new PopupEditAvatar(
+const editAvatarPopup = new PopupWithForm(
   "#edit-avatar-modal",
   (inputValues) => {
-    avatarEditFormButton.textContent = "Saving...";
-    profileAvatar.src = inputValues.link;
+    editAvatarPopup.showLoading();
+
     api
       .updateProfilePicture(inputValues)
-      .then(() => (avatarEditFormButton.textContent = "Save"));
-  }
+      .then(() => {
+        profileAvatar.src = inputValues.link;
+        editAvatarPopup.close();
+      })
+      .catch((err) => console.error(err))
+      .finally(() => {
+        editAvatarPopup.hideLoading();
+      });
+  },
+  "Saving..."
 );
