@@ -94,11 +94,7 @@ class Card {
   }
 
   _isLiked(cardLikes) {
-    if (cardLikes.some((cardLikes) => cardLikes._id === this._userID)) {
-      return true;
-    } else {
-      return false;
-    }
+    return cardLikes.some((cardLikes) => cardLikes._id === this._userID);
   }
 }
 
