@@ -59,12 +59,14 @@ const renderCard = (cardData) => {
     // handleDeleteClick
     (cardID) => {
       deleteCardPopup.setSubmitAction(() => {
+        deleteCardPopup.showLoading();
         api
           .deleteCard(cardID)
           .then(() => {
             card.removeCard(), deleteCardPopup.close();
           })
-          .catch((err) => console.error(err));
+          .catch((err) => console.error(err))
+          .finally(deleteCardPopup.hideLoading());
       });
       deleteCardPopup.open();
     },
@@ -220,7 +222,6 @@ const profileEditPopup = new PopupWithForm(
   "#profile-edit-modal",
   (inputValues) => {
     profileEditPopup.showLoading();
-
     api
       .editProfile(inputValues)
       .then(() => {
@@ -255,7 +256,10 @@ const addCardPopup = new PopupWithForm(
 );
 
 // 5. & 6. Creating a popup for deleting a card
-const deleteCardPopup = new PopupWithConfirmation("#delete-card-modal");
+const deleteCardPopup = new PopupWithConfirmation(
+  "#delete-card-modal",
+  "Deleting..."
+);
 
 // // 7. & 8. Adding and removing likes
 // api included in render card function
