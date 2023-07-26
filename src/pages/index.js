@@ -66,7 +66,9 @@ const renderCard = (cardData) => {
             card.removeCard(), deleteCardPopup.close();
           })
           .catch((err) => console.error(err))
-          .finally(deleteCardPopup.hideLoading());
+          .finally(() => {
+            deleteCardPopup.hideLoading();
+          });
       });
       deleteCardPopup.open();
     },
