@@ -63,12 +63,21 @@
   margin: 0;
 }
 
+.card__like-block {
+  align-items: center;
+  display: flex;
+  flex-direction: column;
+  width: 21px;
+  height: 35px;
+}
+
 .card__like-button {
   background: url(../images/like-inactive.svg) transparent center no-repeat;
   border: none;
   width: 21px;
   height: 18px;
   transition: opacity 0.5s;
+  margin-bottom: 3px;
 }
 
 .card__like-button_active {
@@ -78,6 +87,16 @@
 .card__like-button:hover {
   opacity: 0.5;
   cursor: pointer;
+}
+
+.card__like-number {
+  font-family: "inter", Arial, sans-serif;
+  font-weight: 400;
+  line-height: 1.2;
+  width: 9px;
+  height: 13px;
+  font-size: 13px;
+  margin: 0;
 }
 
 @media screen and (max-width: 490px) {

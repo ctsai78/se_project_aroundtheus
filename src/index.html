@@ -27,7 +27,15 @@
             src="<%=require('./images/profile-photo.svg')%>"
             alt="jacques-cousteau"
             class="profile__image"
+            id="profile-avatar"
           />
+          <div class="profile__image-overlay">
+            <img
+              src="<%=require('./images/edit-profile-button.svg')%>"
+              alt="edit-avatar"
+              class="profile__image-edit-icon"
+            />
+          </div>
           <div class="profile__info">
             <h1 class="profile__title">Jacques Cousteau</h1>
             <button
@@ -58,7 +66,7 @@
         <form class="modal__form" name="profile-edit-form">
           <input
             type="text"
-            name="title"
+            name="name"
             id="profile-title-input"
             class="modal__form-input"
             s
@@ -67,12 +75,12 @@
             maxlength="40"
             minlength="2"
           />
-          <!-- Edit Error message class -->
+
           <span class="modal__input-error" id="profile-title-input-error">
           </span>
           <input
             type="text"
-            name="description"
+            name="about"
             id="profile-description-input"
             class="modal__form-input"
             placeholder="Description"
@@ -92,7 +100,7 @@
       <div class="modal__container">
         <button class="modal__close" type="button"></button>
         <h2 class="modal__heading">New Place</h2>
-        <form class="modal__form" id="add-card-from" name="profile-edit-form">
+        <form class="modal__form" id="add-card-form" name="profile-edit-form">
           <input
             type="text"
             name="name"
@@ -136,15 +144,48 @@
       </div>
     </div>
 
-    <!-- ------------------------- CARD LIST TEMPLATE -------------------------- -->
+    <!-- -------------------------- DELETE CARD MOADL -------------------------- -->
+    <div class="modal" id="delete-card-modal">
+      <div class="modal__container">
+        <button class="modal__close" type="button"></button>
+        <h2 class="modal__heading">Are you sure?</h2>
+        <button class="modal__button-delete" type="submit">Yes</button>
+      </div>
+    </div>
 
+    <!-- --------------------------- Edit AVATAR MODAL ---------------------------- -->
+    <div class="modal" id="edit-avatar-modal">
+      <div class="modal__container">
+        <button class="modal__close" type="button"></button>
+        <h2 class="modal__heading">Change profile picture</h2>
+        <form class="modal__form" id="edit-avatar-form" name="avatar-edit-form">
+          <input
+            type="url"
+            name="link"
+            id="add-avatar-url"
+            class="modal__form-input modal__form-input-URL"
+            placeholder="Image URL"
+            required
+          />
+          <span class="modal__input-error" id="add-avatar-url-error"
+            >Please enter a web address.</span
+          >
+          <button class="modal__button" type="submit">Save</button>
+        </form>
+      </div>
+    </div>
+
+    <!-- ------------------------- CARD LIST TEMPLATE -------------------------- -->
     <template class="" id="card-template">
       <li class="card__block">
         <button class="card__delete-button" type="button"></button>
         <img src="" alt="" class="card__image" />
         <div class="card__description">
           <h2 class="card__title"></h2>
-          <button class="card__like-button" type="button"></button>
+          <div class="card__like-block">
+            <button class="card__like-button" type="button"></button>
+            <h3 class="card__like-number"></h3>
+          </div>
         </div>
       </li>
     </template>
